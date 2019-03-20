@@ -42,8 +42,8 @@ namespace PC_Verwaltung
         private void TextChangedEvent(object sender, RoutedEventArgs e)
         {
             // Zurücksetzen der roten Boxen um die Eingabefelder
-            TextBoxError.Opacity = 0;
-            PasswordBoxError.Opacity = 0;
+            RectTextBoxError.Opacity = 0;
+            RectPasswordBoxError.Opacity = 0;
 
             // Wenn beide Eingabefelder leer sind ist der Anmeldeknopf deaktiviert
             if (TextBox.Text.Equals(string.Empty) || PasswordBox.Password.Equals(string.Empty))
@@ -95,8 +95,8 @@ namespace PC_Verwaltung
                         continue;
                     case LoginResult.PasswordError:
                         // Sichtbarmachen der roten Boxen um die Eingaben wenn das Passwort falsch ist
-                        TextBoxError.Opacity = 100;
-                        PasswordBoxError.Opacity = 100;
+                        RectTextBoxError.Opacity = 1;
+                        RectPasswordBoxError.Opacity = 1;
                         return false;
                     default:
                         break;
@@ -104,8 +104,8 @@ namespace PC_Verwaltung
             }
 
             // Sichtbarmachen der roten Boxen um die Eingaben, wenn der UserName nicht in der Liste war
-            TextBoxError.Opacity = 100;
-            PasswordBoxError.Opacity = 100;
+            RectTextBoxError.Opacity = 1;
+            RectPasswordBoxError.Opacity = 1;
 
             return false;
         }

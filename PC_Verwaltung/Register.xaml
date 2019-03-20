@@ -13,28 +13,30 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3.5*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="1.2*"/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Label x:Name="LabelTitle" Content="Registrierung" FontSize="48" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Bookman Old Style" FontStyle="Italic" Margin="15,0"/>
         <Label x:Name="LabelUserName" Content="Benutzername:" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="24" Margin="0"/>
         <Label x:Name="LabelPassword" Content="Passwort:" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="24" Margin="0"/>
-        <Label x:Name="LabelDisplayName" Content="Anzeigename:" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="24" Margin="0"/>
-        <Label x:Name="LabelEmail" Content="E-Mail:" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="24" Margin="0"/>
+        <Label x:Name="LabelEmail" Content="E-Mail:" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="24" Margin="0"/>
+        <Label x:Name="LabelDisplayName" Content="Anzeigename:" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="24" Margin="0"/>
         <Label x:Name="LabelDepartment" Content="Abteilung:" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="24" Margin="0"/>
+        <Label x:Name="LabelErrorMessage" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="6" FontSize="18" Margin="0" Grid.ColumnSpan="2" Foreground="Red"/>
         <TextBox x:Name="TextBoxUserName" KeyDown="KeyEvent" TextChanged="TextChangedEvent" Grid.Column="1" Margin="7.5,5,15,5" Grid.Row="1" TextWrapping="Wrap" FontSize="24" Panel.ZIndex="1"/>
         <PasswordBox x:Name="PasswordBox" KeyDown="KeyEvent" PasswordChanged="TextChangedEvent" Grid.Column="1" HorizontalAlignment="Stretch" Margin="7.5,5,15,5" Grid.Row="2" FontSize="24" Panel.ZIndex="1"/>
-        <TextBox x:Name="TextBoxDisplayName" KeyDown="KeyEvent" TextChanged="TextChangedEvent" Grid.Column="1" Margin="7.5,5,15,5" Grid.Row="3" TextWrapping="Wrap" FontSize="24" Panel.ZIndex="1"/>
-        <TextBox x:Name="TextBoxEmail" KeyDown="KeyEvent" TextChanged="TextChangedEvent" Grid.Column="1" Margin="7.5,5,15,5" Grid.Row="4" TextWrapping="Wrap" FontSize="24" Panel.ZIndex="1"/>
+        <TextBox x:Name="TextBoxEmail" KeyDown="KeyEvent" TextChanged="TextChangedEvent" Grid.Column="1" Margin="7.5,5,15,5" Grid.Row="3" TextWrapping="Wrap" FontSize="24" Panel.ZIndex="1"/>
+        <TextBox x:Name="TextBoxDisplayName" KeyDown="KeyEvent" TextChanged="TextChangedEvent" Grid.Column="1" Margin="7.5,5,15,5" Grid.Row="4" TextWrapping="Wrap" FontSize="24" Panel.ZIndex="1"/>
         <TextBox x:Name="TextBoxDepartment" KeyDown="KeyEvent" TextChanged="TextChangedEvent" Grid.Column="1" Margin="7.5,5,15,5" Grid.Row="5" TextWrapping="Wrap" FontSize="24" Panel.ZIndex="1"/>
-        <Rectangle x:Name="TextBoxError" Fill="Red" Grid.Column="1" Grid.Row="1" Margin="5.5,0,13,0" Opacity="0"/>
-        <Rectangle x:Name="PasswordBoxError" Fill="Red" Grid.Column="1" Grid.Row="2" Margin="5.5,0,13,0" Opacity="0"/>
+        <Rectangle x:Name="RectUserNameError" Fill="Red" Grid.Column="1" Grid.Row="1" Margin="5.5,2,13,2" Opacity="0"/>
+        <Rectangle x:Name="RectPasswordError" Fill="Red" Grid.Column="1" Grid.Row="2" Margin="5.5,2,13,2" Opacity="0"/>
+        <Rectangle x:Name="RectEmailError" Fill="Red" Grid.Column="1" Grid.Row="3" Margin="6.5,3,13,3" Opacity="0"/>
         <Button x:Name="ButtonBack" Content="Zurück" Click="BackClickEvent" IsEnabled="True" Margin="15,15,7.5,15" Grid.Row="7" FontSize="24"/>
         <Button x:Name="ButtonRegister" Content="Registrieren" Click="RegisterClickEvent" IsEnabled="false" Grid.Row="7" Grid.Column="1" FontSize="24" Margin="7.5,15,15,15"/>
     </Grid>
