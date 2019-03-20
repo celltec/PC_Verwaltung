@@ -9,7 +9,7 @@
     class User
     {
         // Voreingestellte Anmeldedaten, falls dem Konstruktor keine übergeben werden
-        // UserName und Passwort lauten "admin"
+        // Default Username und Passwort lauten "admin"
         private const string DEFAULT_NAME = "admin";
         private const string DEFAULT_PASSWORD_HASH = "8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918";
 

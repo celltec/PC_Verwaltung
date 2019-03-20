@@ -4,9 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PC_Verwaltung"
-             mc:Ignorable="d" 
-             d:DesignHeight="{StaticResource Height}" 
-             d:DesignWidth="{StaticResource Width}">
+             mc:Ignorable="d"
+             x:Name="LoginControl">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"/>

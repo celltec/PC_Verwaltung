@@ -1,7 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
-using System.Collections.Generic;
 
 namespace PC_Verwaltung
 {
@@ -10,17 +10,12 @@ namespace PC_Verwaltung
     /// </Zusammenfassung>
     public partial class Login : UserControl
     {
-        // Neue Benutzerliste anlegen
-        private List<User> users = new List<User>();
-
         // Fenster Initialisieren
         public Login()
         {
             InitializeComponent();
-
-            // Standardbenutzer anlegen
-            users.Add(new User());
-
+            Switcher.Window.Width = Convert.ToInt32(FindResource("Width"));
+            
             // Cursor in Eingabefeld legen
             TextBox.Focus();
         }
@@ -35,6 +30,7 @@ namespace PC_Verwaltung
         // Event handler für den Registrierenknopf
         private void RegisterClickEvent(object sender, RoutedEventArgs e)
         {
+            // Zum Registrierungsbildschirm wechseln
             Switcher.Switch(new Register());
         }
 
@@ -78,7 +74,7 @@ namespace PC_Verwaltung
         private bool CheckLogin(string name, string pw)
         {
             // Benutzerliste durchlaufen
-            foreach (User user in users)
+            foreach (User user in Register.Users)
             {
                 // Anmeldeversuch und Rückgabe eines Ergebnisses
                 LoginResult result = user.Anmelden(name, pw);
