@@ -19,6 +19,9 @@ namespace PC_Verwaltung
         public Register()
         {
             InitializeComponent();
+
+            // Fenster verlängern
+            Switcher.Window.Height = Convert.ToInt32(FindResource("Height"));
             Switcher.Window.Width = Convert.ToInt32(FindResource("Width")) + 100;
 
             // Cursor in Eingabefeld legen

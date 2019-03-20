@@ -15,6 +15,17 @@ namespace PC_Verwaltung
         public void Navigate(UserControl content)
         {
             Content = content;
+            CenterOnScreen();
+        }
+
+        private void CenterOnScreen()
+        {
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            double windowWidth = Width;
+            double windowHeight = Height;
+            Left = (screenWidth / 2) - (windowWidth / 2);
+            Top = (screenHeight / 2) - (windowHeight / 2);
         }
     }
 }

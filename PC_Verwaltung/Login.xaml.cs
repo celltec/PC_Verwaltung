@@ -14,6 +14,9 @@ namespace PC_Verwaltung
         public Login()
         {
             InitializeComponent();
+
+            // Standardfenstergröße setzen
+            Switcher.Window.Height = Convert.ToInt32(FindResource("Height"));
             Switcher.Window.Width = Convert.ToInt32(FindResource("Width"));
             
             // Cursor in Eingabefeld legen
@@ -83,8 +86,8 @@ namespace PC_Verwaltung
                 switch (result)
                 {
                     case LoginResult.Success:
-                        // Bei erfolgreicher Anmeldung einloggen (in Entwicklung)
-                        MessageBox.Show("Login successful, but not implemented yet...");
+                        // Bei erfolgreicher Anmeldung einloggen und zum Verwaltungsbildschirm wechseln
+                        Switcher.Switch(new Manager());
                         return true;
                     case LoginResult.NameError:
                         // Wenn der UserName nicht stimmt weiter die Liste durchsuchen

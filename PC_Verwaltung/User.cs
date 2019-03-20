@@ -27,7 +27,7 @@
         }
 
         // Konstruktor setzt übergebenen UserName und gehashtes Passwort
-        public User(string userName, string pw, string displayName = "", string email = "", string department = "")
+        public User(string userName, string pw, string email = "", string displayName = "", string department = "")
         {
             UserName = userName.ToLower();
             password = SecureHash.GetHashString(pw);
