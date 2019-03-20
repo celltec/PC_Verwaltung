@@ -13,11 +13,11 @@
         private const string DEFAULT_NAME = "admin";
         private const string DEFAULT_PASSWORD_HASH = "8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918";
 
-        public string UserName { get; }
-        public string DisplayName { get; set; }
-        public string Email { get; set; }
-        public string Department { get; set; }
         private readonly string password;
+        public string UserName { get; }
+        public string Email { get; set; }
+        public string DisplayName { get; set; }
+        public string Department { get; set; }
 
         // Standardkonstruktor setzt den definierten UserName und Passworthash
         public User()
@@ -31,8 +31,8 @@
         {
             UserName = userName.ToLower();
             password = SecureHash.GetHashString(pw);
-            DisplayName = displayName;
             Email = email;
+            DisplayName = displayName;
             Department = department;
         }
 

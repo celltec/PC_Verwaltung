@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace PC_Verwaltung
 {
-    /// <summary>
-    /// Interaction logic for Login.xaml
-    /// </summary>
+    /// <Zusammenfassung>
+    /// Die Klasse Login beinhaltet die Logik für das Anmelden
+    /// </Zusammenfassung>
     public partial class Login : UserControl
     {
         // Neue Benutzerliste anlegen

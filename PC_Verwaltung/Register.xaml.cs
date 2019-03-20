@@ -4,6 +4,9 @@ using System.Windows.Controls;
 
 namespace PC_Verwaltung
 {
+    /// <Zusammenfassung>
+    /// Die Klasse Login beinhaltet die Logik für das Registrieren
+    /// </Zusammenfassung>
     public partial class Register : UserControl
     {
         public Register()
@@ -57,6 +60,14 @@ namespace PC_Verwaltung
 
         private void RegisterUser()
         {
+            if (TextBoxEmail.Text.Equals(string.Empty))
+            {
+                if (MessageBoxResult.Yes == MessageBox.Show("Ohne E-Mail kann das Passwort nicht zurückgesetzt werden!\nMöchten sie doch eine E-Mail angeben?", "Warnung", MessageBoxButton.YesNo, MessageBoxImage.Warning))
+                {
+                    return;
+                }
+            }
+
             /// ToDo: register logic
 
             Switcher.Switch(new Login());
