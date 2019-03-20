@@ -63,7 +63,7 @@ namespace PC_Verwaltung
             switch (e.Key)
             {
                 case Key.Enter:
-                    // Wenn Enter gedrückt wurde überprüfen, dass Name und Passwort nicht leer sind
+                    // Wenn Enter gedrückt wurde überprüfen, dass UserName und Passwort nicht leer sind
                     if (TextBox.Text != "" && PasswordBox.Password != "")
                     {
                         // Anmeldeversuch mit eingegebenem Text starten
@@ -87,14 +87,15 @@ namespace PC_Verwaltung
                 switch (result)
                 {
                     case LoginResult.Success:
-                        // Bei erfolgreicher Anmeldung SplashScreen anzeigen
-                        MessageBox.Show("Not implemented yet");
+                        // Bei erfolgreicher Anmeldung einloggen (in Entwicklung)
+                        MessageBox.Show("Login successful, but not implemented yet...");
                         return true;
                     case LoginResult.NameError:
-                        // Wenn der Name nicht stimmt weiter die Liste durchsuchen
+                        // Wenn der UserName nicht stimmt weiter die Liste durchsuchen
                         continue;
                     case LoginResult.PasswordError:
-                        // Sichtbarmachen der roten Box um die Passworteingabe wenn das Passwort falsch ist
+                        // Sichtbarmachen der roten Boxen um die Eingaben wenn das Passwort falsch ist
+                        TextBoxError.Opacity = 100;
                         PasswordBoxError.Opacity = 100;
                         return false;
                     default:
@@ -102,8 +103,9 @@ namespace PC_Verwaltung
                 }
             }
 
-            // Sichtbarmachen der roten Box um die Texteingabe, wenn der Name nicht in der Liste war
+            // Sichtbarmachen der roten Boxen um die Eingaben, wenn der UserName nicht in der Liste war
             TextBoxError.Opacity = 100;
+            PasswordBoxError.Opacity = 100;
 
             return false;
         }

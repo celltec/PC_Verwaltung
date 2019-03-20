@@ -9,32 +9,38 @@
     class User
     {
         // Voreingestellte Anmeldedaten, falls dem Konstruktor keine übergeben werden
-        // Name und Passwort lauten "admin"
+        // UserName und Passwort lauten "admin"
         private const string DEFAULT_NAME = "admin";
         private const string DEFAULT_PASSWORD_HASH = "8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918";
 
-        public string Name { get; }
+        public string UserName { get; }
+        public string DisplayName { get; set; }
+        public string Email { get; set; }
+        public string Department { get; set; }
         private readonly string password;
 
-        // Standardkonstruktor setzt den definierten Name und Passworthash
+        // Standardkonstruktor setzt den definierten UserName und Passworthash
         public User()
         {
-            Name = DEFAULT_NAME;
+            UserName = DEFAULT_NAME;
             password = DEFAULT_PASSWORD_HASH;
         }
 
-        // Konstruktor setzt übergebenen Name und gehashtes Passwort
-        public User(string name, string pw)
+        // Konstruktor setzt übergebenen UserName und gehashtes Passwort
+        public User(string userName, string pw, string displayName = "", string email = "", string department = "")
         {
-            Name = name.ToLower();
+            UserName = userName.ToLower();
             password = SecureHash.GetHashString(pw);
+            DisplayName = displayName;
+            Email = email;
+            Department = department;
         }
 
         // Hier findet der Anmeldedatenvergleich statt
         public LoginResult Anmelden(string name, string pw)
         {
-            // Name prüfen
-            if (name.ToLower() != Name)
+            // UserName prüfen
+            if (name.ToLower() != UserName)
             {
                 // Bei Ungleichheit Error zurückgeben
                 return LoginResult.NameError;
