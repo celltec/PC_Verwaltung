@@ -8,4 +8,6 @@
         Title="{StaticResource AppTitle}" 
         Height="{StaticResource Height}" 
         Width="{StaticResource Width}" 
-        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize"/>
+        MinHeight="{StaticResource Height}" 
+        MinWidth="{StaticResource Width}"
+        WindowStartupLocation="CenterScreen"/>

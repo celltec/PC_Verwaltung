@@ -12,10 +12,14 @@ namespace PC_Verwaltung
             Switcher.Switch(new Login());
         }
 
-        public void Navigate(UserControl content)
+        public void Navigate(UserControl content, bool centerWindow = false)
         {
             Content = content;
-            CenterOnScreen();
+
+            if (centerWindow)
+            {
+                CenterOnScreen();
+            }
         }
 
         private void CenterOnScreen()

@@ -18,7 +18,11 @@ namespace PC_Verwaltung
             // Standardfenstergröße setzen
             Switcher.Window.Height = Convert.ToInt32(FindResource("Height"));
             Switcher.Window.Width = Convert.ToInt32(FindResource("Width"));
-            
+
+            // Veränderung der Fenstergröße unterbinden
+            Switcher.Window.MaxHeight = Convert.ToInt32(FindResource("Height"));
+            Switcher.Window.MaxWidth = Convert.ToInt32(FindResource("Width"));
+
             // Cursor in Eingabefeld legen
             TextBox.Focus();
         }

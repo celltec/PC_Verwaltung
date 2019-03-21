@@ -20,9 +20,9 @@ namespace PC_Verwaltung
         {
             InitializeComponent();
 
-            // Fenster verlängern
-            Switcher.Window.Height = Convert.ToInt32(FindResource("Height"));
-            Switcher.Window.Width = Convert.ToInt32(FindResource("Width")) + 100;
+            // Fensterverlängerung eingrenzen
+            Switcher.Window.MaxHeight = Convert.ToInt32(FindResource("Height"));
+            Switcher.Window.MaxWidth = Convert.ToInt32(FindResource("Width")) * 2;
 
             // Cursor in Eingabefeld legen
             TextBoxUserName.Focus();

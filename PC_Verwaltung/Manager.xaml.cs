@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace PC_Verwaltung
@@ -12,9 +13,9 @@ namespace PC_Verwaltung
         {
             InitializeComponent();
 
-            // Fenster vergrößern
-            Switcher.Window.Height = Convert.ToInt32(FindResource("Height")) * 1.5;
-            Switcher.Window.Width = Convert.ToInt32(FindResource("Width")) * 2;
+            // Veränderung der Fenstergröße zulassen
+            Switcher.Window.MaxHeight = SystemParameters.PrimaryScreenHeight;
+            Switcher.Window.MaxWidth = SystemParameters.PrimaryScreenWidth;
         }
 
         private void CloseClickEvent(object sender, System.Windows.RoutedEventArgs e)
