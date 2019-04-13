@@ -15,14 +15,6 @@ namespace PC_Verwaltung
         {
             InitializeComponent();
 
-            // Standardfenstergröße setzen
-            Switcher.Window.Height = Convert.ToInt32(FindResource("Height"));
-            Switcher.Window.Width = Convert.ToInt32(FindResource("Width"));
-
-            // Veränderung der Fenstergröße unterbinden
-            Switcher.Window.MaxHeight = Convert.ToInt32(FindResource("Height"));
-            Switcher.Window.MaxWidth = Convert.ToInt32(FindResource("Width"));
-
             // Cursor in Eingabefeld legen
             TextBox.Focus();
         }
@@ -38,7 +30,7 @@ namespace PC_Verwaltung
         private void RegisterClickEvent(object sender, RoutedEventArgs e)
         {
             // Zum Registrierungsbildschirm wechseln
-            Switcher.Switch(new Register());
+            Switcher.Navigate(new Register());
         }
 
         // Event handler für Änderungen in den Eingabefeldern
@@ -90,8 +82,9 @@ namespace PC_Verwaltung
                 switch (result)
                 {
                     case LoginResult.Success:
-                        // Bei erfolgreicher Anmeldung einloggen und zum Verwaltungsbildschirm wechseln
-                        Switcher.Switch(new Manager());
+                        // Bei erfolgreicher Anmeldung aktuellen Benutzer setzen und Anmeldebildschirm schließen
+                        User.CurrentUser = user;
+                        Switcher.Window.Close();
                         return true;
                     case LoginResult.NameError:
                         // Wenn der UserName nicht stimmt weiter die Liste durchsuchen

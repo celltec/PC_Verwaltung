@@ -13,16 +13,12 @@ namespace PC_Verwaltung
     public partial class Register : UserControl
     {
         // Benutzerliste anlegen und Standardbenutzer einfügen
-        internal static List<User> Users { get; } = new List<User>() { new User() };
+        internal static List<User> Users { get; } = new List<User>() { new User("q", "q") };
 
         // Fenster Initialisieren
         public Register()
         {
             InitializeComponent();
-
-            // Fensterverlängerung eingrenzen
-            Switcher.Window.MaxHeight = Convert.ToInt32(FindResource("Height"));
-            Switcher.Window.MaxWidth = Convert.ToInt32(FindResource("Width")) * 2;
 
             // Cursor in Eingabefeld legen
             TextBoxUserName.Focus();
@@ -32,7 +28,7 @@ namespace PC_Verwaltung
         private void BackClickEvent(object sender, RoutedEventArgs e)
         {
             // Zum Anmeldebildschirm wechseln
-            Switcher.Switch(new Login());
+            Switcher.Navigate(new Login());
         }
 
         // Event handler für den Registrierenknopf
@@ -102,7 +98,7 @@ namespace PC_Verwaltung
                 MessageBox.Show("Registrierung erfolgreich!", FindResource("AppTitle").ToString(), MessageBoxButton.OK, MessageBoxImage.Information);
 
                 // Zum Anmeldebildschirm wechseln
-                Switcher.Switch(new Login());
+                Switcher.Navigate(new Login());
             }
         }
 

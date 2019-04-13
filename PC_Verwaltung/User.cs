@@ -19,6 +19,9 @@
         public string DisplayName { get; set; }
         public string Department { get; set; }
 
+        // Hier wird der aktuell eingeloggte Benutzer gespeichert
+        public static User CurrentUser { get; set; }
+
         // Standardkonstruktor setzt den definierten UserName und Passworthash
         public User()
         {

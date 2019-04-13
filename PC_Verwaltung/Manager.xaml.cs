@@ -1,26 +1,23 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 namespace PC_Verwaltung
 {
-    /// <Zusammenfassung>
-    /// Die Klasse Manager beinhaltet die Logik für das Verwalten der Geräte
-    /// </Zusammenfassung>
-    public partial class Manager : UserControl
+    public partial class Manager : Window
     {
         public Manager()
         {
             InitializeComponent();
+            new Entry().ShowDialog();
 
-            // Veränderung der Fenstergröße zulassen
-            Switcher.Window.MaxHeight = SystemParameters.PrimaryScreenHeight;
-            Switcher.Window.MaxWidth = SystemParameters.PrimaryScreenWidth;
+            if(User.CurrentUser is null)
+            {
+                Close();
+            }
         }
 
         private void CloseClickEvent(object sender, System.Windows.RoutedEventArgs e)
         {
-            Switcher.Window.Close();
+            Close();
         }
     }
 }

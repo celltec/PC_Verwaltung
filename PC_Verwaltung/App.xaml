@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PC_Verwaltung"
              xmlns:clr="clr-namespace:System;assembly=mscorlib"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Manager.xaml">
     <Application.Resources>
         <clr:String x:Key="AppTitle">PC Verwaltung</clr:String>
-        <clr:Double x:Key="Height">500</clr:Double>
-        <clr:Double x:Key="Width">400</clr:Double>
+        <clr:Double x:Key="Height">720</clr:Double>
+        <clr:Double x:Key="Width">1024</clr:Double>
         <BitmapImage x:Key="pictureComputerResource" UriSource="Images/Computer.jpg"/>
     </Application.Resources>
 </Application>

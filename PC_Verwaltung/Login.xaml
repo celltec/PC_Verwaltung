@@ -12,21 +12,21 @@
             <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="77"/>
         </Grid.RowDefinitions>
-        <Image x:Name="PictureComputer" Margin="60,0" Source="{StaticResource pictureComputerResource}" Stretch="Fill" Grid.ColumnSpan="3"/>
-        <Label x:Name="LabelTitle" Content="PC Verwaltung" FontSize="48" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Bookman Old Style" FontStyle="Italic" Margin="15,0"/>
+        <Image x:Name="PictureComputer" Source="{StaticResource pictureComputerResource}" Grid.ColumnSpan="3"/>
+        <Label x:Name="LabelTitle" Content="PC Verwaltung" FontSize="50" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Courier New" Margin="15,0"/>
         <Label x:Name="LabelName" Content="Name:" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="24" Margin="0"/>
         <Label x:Name="LabelPassword" Content="Passwort:" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="24" Margin="0"/>
-        <TextBox x:Name="TextBox" KeyDown="KeyEvent" TextChanged="TextChangedEvent" Grid.Column="1" Margin="7.5,2,15,2" Grid.Row="2" TextWrapping="Wrap" FontSize="24" Panel.ZIndex="1" Grid.ColumnSpan="2"/>
-        <PasswordBox x:Name="PasswordBox" KeyDown="KeyEvent" PasswordChanged="TextChangedEvent" Grid.Column="1" HorizontalAlignment="Stretch" Margin="7.5,2,15,2" Grid.Row="3" FontSize="24" Panel.ZIndex="1" Grid.ColumnSpan="2"/>
-        <Rectangle x:Name="RectTextBoxError" Fill="Red" Grid.Column="1" Grid.Row="2" Margin="6.5,1,14,1" Opacity="0" Grid.ColumnSpan="2"/>
-        <Rectangle x:Name="RectPasswordBoxError" Fill="Red" Grid.Column="1" Grid.Row="3" Margin="6.5,1,14,1" Opacity="0" Grid.ColumnSpan="2"/>
-        <Button x:Name="ButtonLogin" Content="Anmelden" Click="LoginClickEvent" IsEnabled="False" Margin="15,15,7.5,15" Grid.Row="4" Grid.ColumnSpan="2" FontSize="24"/>
-        <Button x:Name="ButtonRegister" Content="Registrieren" Click="RegisterClickEvent" Grid.Row="4" Grid.Column="2" FontSize="24" Margin="7.5,15,15,15"/>
+        <TextBox x:Name="TextBox" KeyDown="KeyEvent" TextChanged="TextChangedEvent" Grid.Column="1" Margin="8,5,15,5" Grid.Row="2" TextWrapping="Wrap" FontSize="24" Panel.ZIndex="1" Grid.ColumnSpan="2" Height="35"/>
+        <PasswordBox x:Name="PasswordBox" KeyDown="KeyEvent" PasswordChanged="TextChangedEvent" Grid.Column="1" HorizontalAlignment="Stretch" Margin="8,5,15,5" Grid.Row="3" FontSize="24" Panel.ZIndex="1" Grid.ColumnSpan="2" Height="35"/>
+        <Rectangle x:Name="RectTextBoxError" Fill="Red" Grid.Column="1" Grid.Row="2" Margin="6,3,13,3" Opacity="0" Grid.ColumnSpan="2"/>
+        <Rectangle x:Name="RectPasswordBoxError" Fill="Red" Grid.Column="1" Grid.Row="3" Margin="6,3,13,3" Opacity="0" Grid.ColumnSpan="2"/>
+        <Button x:Name="ButtonLogin" Content="Anmelden" Click="LoginClickEvent" IsEnabled="False" Margin="15,15,8,15" Grid.Row="4" Grid.ColumnSpan="2" FontSize="24"/>
+        <Button x:Name="ButtonRegister" Content="Registrieren" Click="RegisterClickEvent" Grid.Row="4" Grid.Column="2" FontSize="24" Margin="8,15,15,15"/>
     </Grid>
 </UserControl>
