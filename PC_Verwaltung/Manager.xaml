@@ -16,14 +16,18 @@
                 <MenuItem Header="_Öffnen" />
                 <MenuItem Header="_Speichern" />
                 <Separator/>
-                <MenuItem Header="_Beenden" Click="CloseClickEvent" />
+                <MenuItem Header="_Beenden" Click="CloseClickEvent"/>
             </MenuItem>
             <MenuItem Header="_Werkzeuge">
                 <MenuItem Header="_Einstellungen"/>
             </MenuItem>
         </Menu>
         <Grid>
-            <TabControl FontSize="14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="28*"/>
+                <ColumnDefinition Width="989*"/>
+            </Grid.ColumnDefinitions>
+            <TabControl FontSize="14" Grid.ColumnSpan="2">
                 <TabItem Header="Verwalten">
                     <GroupBox Header="PC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0">
                         <Grid HorizontalAlignment="Left" VerticalAlignment="Top">

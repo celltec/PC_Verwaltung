@@ -82,8 +82,9 @@ namespace PC_Verwaltung
                 switch (result)
                 {
                     case LoginResult.Success:
-                        // Bei erfolgreicher Anmeldung aktuellen Benutzer setzen und Anmeldebildschirm schließen
+                        // Bei erfolgreicher Anmeldung aktuellen Benutzer und Ergebnis Flag setzen, dann den Anmeldebildschirm schließen
                         User.CurrentUser = user;
+                        Switcher.Window.DialogResult = true;
                         Switcher.Window.Close();
                         return true;
                     case LoginResult.NameError:
