@@ -20,7 +20,7 @@
             <MenuItem Header="_Über" Click="AboutClickEvent"/>
         </Menu>
         <Grid>
-            <GroupBox Header="Computer" HorizontalAlignment="Left" Height="494" Margin="72,70,0,0" VerticalAlignment="Top" Width="388">
+            <GroupBox Header="Computer" FontSize="14" HorizontalAlignment="Left" Height="494" Margin="72,70,0,0" VerticalAlignment="Top" Width="388">
                 <ScrollViewer>
                     <StackPanel Name="ComputersViewList"/>
                 </ScrollViewer>

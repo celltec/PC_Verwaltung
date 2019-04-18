@@ -41,6 +41,9 @@ namespace PC_Verwaltung
             Computers.Add(new Computer(2, "PC2", "60:57:18:E6:49:03")); // for debugging
             Computers.Add(new Computer(3, "PC3", "00:1B:44:11:3A:B7")); // for debugging
 
+            ComputersViewList.Children.Add(new ComputerView()); // for debugging
+            ComputersViewList.Children.Add(new ComputerView()); // for debugging
+
             // SaveConfiguration(); // for debugging
             // Close(); // for debugging
 
@@ -137,6 +140,7 @@ namespace PC_Verwaltung
                 FindResource("AppTitle").ToString());
         }
 
+        // for debugging
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ComputersViewList.Children.Add(new ComputerView());
