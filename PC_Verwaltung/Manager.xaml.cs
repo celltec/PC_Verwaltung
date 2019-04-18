@@ -46,63 +46,63 @@ namespace PC_Verwaltung
 
         }
 
-        // Loads a configuration from a .xml file
+        // Läd eine Konfiguration aus einer .xml Datei
         private void OpenConfiguration()
         {
             OpenFileDialog XmlFileDialog = new OpenFileDialog() { Filter = "XML Dateien (*.xml)|*.xml" };
 
-            // Ask for the location of the file
+            // Fragen welche Datei geöffnet werden soll
             if (XmlFileDialog.ShowDialog() == true)
             {
-                // Create reader object
+                // Erstelle Leseobjekt
                 FileStream Reader = new FileStream(XmlFileDialog.FileName, FileMode.Open, FileAccess.Read);
 
                 try
                 {
-                    // Transfer the data from the XML format to the objects
+                    // Konvertiere die Daten der XML Datei in Computer Objekte
                     Computers = (List<Computer>)Xml.Deserialize(Reader);
                 }
                 catch (Exception e)
                 {
-                    // Show error message if something went wrong
+                    // Zeige eine Fehlermeldung wenn etwas schief gegangen ist
                     MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
-                    // Cleanup
+                    // Leseobjekt muss geschlossen werden
                     Reader.Close();
                 }
             }
         }
 
-        // Saves the current configuration to a .xml file
+        // Schreibt die derzeitige Konfiguration in eine .xml Datei
         private void SaveConfiguration()
         {
             SaveFileDialog XmlFileDialog = new SaveFileDialog{ Filter = "XML Dateien (*.xml)|*.xml" };
 
-            // Ask where to save the file
+            // Fragen wo die Datei gespeichert werden soll
             if (XmlFileDialog.ShowDialog() == true)
             {
-                // Create writer object
+                // Erstelle Schreibeobjekt
                 FileStream Writer = new FileStream(XmlFileDialog.FileName, FileMode.Create, FileAccess.Write);
 
-                // Clear namespace clutter for better looks
+                // Für bessere Ästhetik unnötige Angaben über den Namespace unterdrücken 
                 XmlSerializerNamespaces EmptyNameSpace = new XmlSerializerNamespaces();
                 EmptyNameSpace.Add(string.Empty, string.Empty);
 
                 try
                 {
-                    // Transfer the data from the objects into the XML format
+                    // Konvertiere die Daten der Computer Objekte in das XML Format
                     Xml.Serialize(Writer, Computers, EmptyNameSpace);
                 }
                 catch (Exception e)
                 {
-                    // Show error message if something went wrong
+                    // Zeige eine Fehlermeldung wenn etwas schief gegangen ist
                     MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
-                    // Clean up
+                    // Schreibeobjekt muss geschlossen werden
                     Writer.Close();
                 }
             }
