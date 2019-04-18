@@ -12,18 +12,18 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="#FFFFFF" FontSize="14">
             <MenuItem Header="_Datei">
-                <MenuItem Header="_Öffnen" />
-                <MenuItem Header="_Speichern als..." />
+                <MenuItem Header="_Öffnen..."  Click="OpenClickEvent"/>
+                <MenuItem Header="_Speichern als..."  Click="SaveClickEvent"/>
                 <Separator/>
                 <MenuItem Header="_Beenden" Click="CloseClickEvent"/>
             </MenuItem>
             <MenuItem Header="_Über" Click="AboutClickEvent"/>
         </Menu>
         <Grid>
-            
-            
-            
-            
+
+
+
+
         </Grid>
     </DockPanel>
 </Window>

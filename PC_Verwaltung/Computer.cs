@@ -3,14 +3,18 @@
     /// <Zusammenfassung>
     /// Die Klasse Computer beinhaltet technische Daten über einen PC
     /// </Zusammenfassung>
-    class Computer
+    public class Computer
     {
-        public string ComputerId { get; set; }
+        public int ComputerId { get; set; }
         public string ComputerName { get; set; }
         public string MacAddress { get; set; }
 
+        public Computer()
+        {
+        }
+
         // Konstruktor setzt übergebene Attribute
-        public Computer(string computerId, string computerName, string macAddress)
+        public Computer(int computerId, string computerName, string macAddress)
         {
             ComputerId = computerId;
             ComputerName = computerName;
