@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows;
 using Microsoft.Win32;
 using System.Xml.Serialization;
@@ -13,7 +14,7 @@ namespace PC_Verwaltung
     public partial class Manager : Window
     {
         // Liste mit allen Computern, die dem derzeitigen Benutzer zugewiesen sind
-        private readonly List<Computer> Computers;
+        private List<Computer> Computers;
 
         // Xml Konverter Objekt
         private readonly XmlSerializer Xml;
@@ -50,33 +51,60 @@ namespace PC_Verwaltung
         {
             OpenFileDialog XmlFileDialog = new OpenFileDialog() { Filter = "XML Dateien (*.xml)|*.xml" };
 
+            // Ask for the location of the file
             if (XmlFileDialog.ShowDialog() == true)
             {
+                // Create reader object
+                FileStream Reader = new FileStream(XmlFileDialog.FileName, FileMode.Open, FileAccess.Read);
 
+                try
+                {
+                    // Transfer the data from the XML format to the objects
+                    Computers = (List<Computer>)Xml.Deserialize(Reader);
+                }
+                catch (Exception e)
+                {
+                    // Show error message if something went wrong
+                    MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    // Cleanup
+                    Reader.Close();
+                }
             }
         }
 
         // Saves the current configuration to a .xml file
         private void SaveConfiguration()
         {
-            // Ask where to save the file
             SaveFileDialog XmlFileDialog = new SaveFileDialog{ Filter = "XML Dateien (*.xml)|*.xml" };
 
-            // If path was chosen proceed saving
+            // Ask where to save the file
             if (XmlFileDialog.ShowDialog() == true)
             {
                 // Create writer object
-                TextWriter Writer = new StreamWriter(XmlFileDialog.FileName);
+                FileStream Writer = new FileStream(XmlFileDialog.FileName, FileMode.Create, FileAccess.Write);
 
                 // Clear namespace clutter for better looks
                 XmlSerializerNamespaces EmptyNameSpace = new XmlSerializerNamespaces();
                 EmptyNameSpace.Add(string.Empty, string.Empty);
 
-                // Transfer the data from the objects into the XML format
-                Xml.Serialize(Writer, Computers, EmptyNameSpace);
-
-                // Clean up
-                Writer.Close();
+                try
+                {
+                    // Transfer the data from the objects into the XML format
+                    Xml.Serialize(Writer, Computers, EmptyNameSpace);
+                }
+                catch (Exception e)
+                {
+                    // Show error message if something went wrong
+                    MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    // Clean up
+                    Writer.Close();
+                }
             }
         }
 
