@@ -20,10 +20,12 @@
             <MenuItem Header="_Über" Click="AboutClickEvent"/>
         </Menu>
         <Grid>
-
-
-
-
+            <GroupBox Header="Computer" HorizontalAlignment="Left" Height="494" Margin="72,70,0,0" VerticalAlignment="Top" Width="388">
+                <ScrollViewer>
+                    <StackPanel Name="ComputersViewList"/>
+                </ScrollViewer>
+            </GroupBox>
+            <Button x:Name="button" Content="add item" HorizontalAlignment="Left" Margin="555,252,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         </Grid>
     </DockPanel>
 </Window>

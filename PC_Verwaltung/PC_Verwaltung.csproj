@@ -80,6 +80,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Computer.cs" />
+    <Compile Include="ComputerView.xaml.cs">
+      <DependentUpon>ComputerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Entry.xaml.cs">
       <DependentUpon>Entry.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
     <Compile Include="SecureHash.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="User.cs" />
+    <Page Include="ComputerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Entry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

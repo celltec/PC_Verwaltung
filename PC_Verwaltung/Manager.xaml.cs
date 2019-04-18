@@ -136,5 +136,10 @@ namespace PC_Verwaltung
                 + "Erstellt mit Liebe von Jeremy Peters.", 
                 FindResource("AppTitle").ToString());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ComputersViewList.Children.Add(new ComputerView());
+        }
     }
 }
