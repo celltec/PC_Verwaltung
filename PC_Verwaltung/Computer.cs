@@ -9,9 +9,8 @@
         public string ComputerName { get; set; }
         public string MacAddress { get; set; }
 
-        public Computer()
-        {
-        }
+        // Leerer Standardkonstruktor
+        public Computer(){}
 
         // Konstruktor setzt übergebene Attribute
         public Computer(int computerId, string computerName, string macAddress)

@@ -16,41 +16,43 @@ namespace PC_Verwaltung
         // Xml Konverter Objekt
         private readonly XmlSerializer Xml;
 
+        // Dateidialog Objekt
         private FileDialog XmlFileDialog;
 
         public Manager()
         {
             InitializeComponent();
 
-            /*
             // Anmeldung aufrufen
             if (new Entry().ShowDialog() == false)
             {
                 // Anwendung schließen, wenn niemand angemeldet wurde
                 Close();
             }
-            //*/
 
-            User.CurrentUser = Register.Users[0]; // for debugging
-
+            // TODO: change implementation of user assignment
             Xml = new XmlSerializer(typeof(List<Computer>), new XmlRootAttribute(User.CurrentUser.UserName));
-
-
-            // SaveConfiguration(); // for debugging
-            // Close(); // for debugging
         }
 
+        // Platziere Computer Objekte in der Anzeigeliste
         private void UpdateConfiguration(List<Computer> computers)
         {
+            // Liste zurücksetzen
             ComputerViewList.Children.Clear();
 
-            // Konvertiere die Daten der XML Datei in Computer Objekte und platziere sie in der Anzeigeliste
             foreach (Computer computer in computers)
             {
                 ComputerView view = new ComputerView();
+
+                // Inhalt setzen
                 view.TextBoxId.Text = computer.ComputerId.ToString();
                 view.TextBoxName.Text = computer.ComputerName;
                 view.TextBoxMac.Text = computer.MacAddress;
+
+                // Löschen Funktion dem Event handler übergeben
+                view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
+
+                // Computer der Liste hinzufügen
                 ComputerViewList.Children.Add(view);
             }
         }
@@ -68,18 +70,9 @@ namespace PC_Verwaltung
 
                 try
                 {
-                    ComputerViewList.Children.Clear();
+                    // Konvertiere die Daten der XML Datei in Computer Objekte
+                    UpdateConfiguration((List<Computer>)Xml.Deserialize(Reader));
 
-                    // Konvertiere die Daten der XML Datei in Computer Objekte und platziere sie in der Anzeigeliste
-                    foreach (Computer computer in (List<Computer>)Xml.Deserialize(Reader))
-                    {
-                        ComputerView view = new ComputerView();
-                        view.TextBoxId.Text = computer.ComputerId.ToString();
-                        view.TextBoxName.Text = computer.ComputerName;
-                        view.TextBoxMac.Text = computer.MacAddress;
-                        view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
-                        ComputerViewList.Children.Add(view);
-                    }
                 }
                 catch (Exception e)
                 {
@@ -107,7 +100,7 @@ namespace PC_Verwaltung
 
                 foreach (ComputerView view in ComputerViewList.Children)
                 {
-                    // TODO: check for illegal characters
+                    // TODO: check for empty or illegal characters
                     Computers.Add(new Computer(int.Parse(view.TextBoxId.Text), view.TextBoxName.Text, view.TextBoxMac.Text));
                 }
 
@@ -136,7 +129,7 @@ namespace PC_Verwaltung
             }
         }
 
-        // Callback Funktion zum Löschen eines Computers (wird Event handler übergeben)
+        // Funktion zum Löschen eines Computers (wird Event handler übergeben)
         private void DeleteComputer(ComputerView computer)
         {
             // Computer auf Liste entfernen
@@ -149,7 +142,7 @@ namespace PC_Verwaltung
             // Leeren Computer erstellen
             ComputerView view = new ComputerView();
 
-            // Callback Funktion dem Löschen Event handler übergeben
+            // Löschen Funktion dem Event handler übergeben
             view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
 
             // Computer an erster Stelle in die Liste einfügen
@@ -162,13 +155,14 @@ namespace PC_Verwaltung
             OpenConfiguration();
         }
 
-        // Event handler zum Speichern einer Konfiguration
+        // Event handler zum Speichern der Konfiguration in der aktuellen Datei
         private void SaveClickEvent(object sender, System.Windows.RoutedEventArgs e)
         {
+            // TODO: save only to current file
             SaveConfiguration();
         }
 
-        // Event handler zum Speichern einer Konfiguration
+        // Event handler zum Speichern der Konfiguration in einer neuen Datei
         private void SaveAsClickEvent(object sender, System.Windows.RoutedEventArgs e)
         {
             SaveConfiguration();

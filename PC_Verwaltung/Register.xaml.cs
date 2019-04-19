@@ -13,7 +13,7 @@ namespace PC_Verwaltung
     public partial class Register : UserControl
     {
         // Benutzerliste anlegen und Standardbenutzer einfügen
-        internal static List<User> Users { get; } = new List<User>() { new User("q", "q", "ein.test@user.de", "Test User", "XY/ABC"), new User("1", "1") };
+        internal static List<User> Users { get; } = new List<User>() { new User() };
 
         // Fenster Initialisieren
         public Register()
