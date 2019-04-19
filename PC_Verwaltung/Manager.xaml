@@ -13,19 +13,20 @@
         <Menu DockPanel.Dock="Top" Background="#FFFFFF" FontSize="14">
             <MenuItem Header="_Datei">
                 <MenuItem Header="_Öffnen..."  Click="OpenClickEvent"/>
-                <MenuItem Header="_Speichern als..."  Click="SaveClickEvent"/>
+                <MenuItem Header="_Speichern als..."  Click="SaveAsClickEvent"/>
                 <Separator/>
                 <MenuItem Header="_Beenden" Click="CloseClickEvent"/>
             </MenuItem>
             <MenuItem Header="_Über" Click="AboutClickEvent"/>
         </Menu>
         <Grid>
-            <GroupBox Header="Computer" FontSize="14" HorizontalAlignment="Left" Height="494" Margin="72,70,0,0" VerticalAlignment="Top" Width="388">
+            <GroupBox Header="Computer" FontSize="14" Height="494" Margin="70" VerticalAlignment="Top">
                 <ScrollViewer>
-                    <StackPanel Name="ComputersViewList"/>
+                    <StackPanel Name="ComputerViewList"/>
                 </ScrollViewer>
             </GroupBox>
-            <Button x:Name="button" Content="add item" HorizontalAlignment="Left" Margin="555,252,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+            <Button x:Name="button" Content="add item" HorizontalAlignment="Left" Margin="151,596,0,0" VerticalAlignment="Top" Width="75" Click="AddNewClickEvent"/>
+            <Button x:Name="buttonsave" Content="save" HorizontalAlignment="Left" Margin="284,596,0,0" VerticalAlignment="Top" Width="75" Click="SaveClickEvent"/>
         </Grid>
     </DockPanel>
 </Window>

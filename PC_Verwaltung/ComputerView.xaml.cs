@@ -1,28 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PC_Verwaltung
 {
-    /// <summary>
-    /// Interaction logic for ComputerView.xaml
-    /// </summary>
+    /// <Zusammenfassung>
+    /// Die Klasse ComputerView beinhaltet Event Handler für das UserControl
+    /// </Zusammenfassung>
     public partial class ComputerView : UserControl
     {
         public ComputerView()
         {
             InitializeComponent();
+        }
+
+        // Event handler zum Löschen dieses ComputerView Objektes
+        public event DeleteHandler Delete;
+        public delegate void DeleteHandler(ComputerView computer);
+
+        // Event handler des Löschen Knopfes
+        private void DeleteClickEvent(object sender, System.Windows.RoutedEventArgs e)
+        {
+            // Delete Event auslösen
+            Delete?.Invoke(this);
         }
     }
 }

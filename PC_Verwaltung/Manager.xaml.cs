@@ -13,11 +13,10 @@ namespace PC_Verwaltung
     /// </Zusammenfassung>
     public partial class Manager : Window
     {
-        // Liste mit allen Computern, die dem derzeitigen Benutzer zugewiesen sind
-        private List<Computer> Computers;
-
         // Xml Konverter Objekt
         private readonly XmlSerializer Xml;
+
+        private FileDialog XmlFileDialog;
 
         public Manager()
         {
@@ -34,25 +33,33 @@ namespace PC_Verwaltung
 
             User.CurrentUser = Register.Users[0]; // for debugging
 
-            Computers = new List<Computer>();
             Xml = new XmlSerializer(typeof(List<Computer>), new XmlRootAttribute(User.CurrentUser.UserName));
 
-            Computers.Add(new Computer(1, "PC1", "00:80:41:AE:FD:7E")); // for debugging
-            Computers.Add(new Computer(2, "PC2", "60:57:18:E6:49:03")); // for debugging
-            Computers.Add(new Computer(3, "PC3", "00:1B:44:11:3A:B7")); // for debugging
-
-            ComputersViewList.Children.Add(new ComputerView()); // for debugging
-            ComputersViewList.Children.Add(new ComputerView()); // for debugging
 
             // SaveConfiguration(); // for debugging
             // Close(); // for debugging
+        }
 
+        // Läd eine Konfiguration aus einer .xml Datei
+        private void UpdateConfiguration(List<Computer> computers)
+        {
+            ComputerViewList.Children.Clear();
+
+            // Konvertiere die Daten der XML Datei in Computer Objekte und platziere sie in der Anzeigeliste
+            foreach (Computer computer in computers)
+            {
+                ComputerView view = new ComputerView();
+                view.TextBoxId.Text = computer.ComputerId.ToString();
+                view.TextBoxName.Text = computer.ComputerName;
+                view.TextBoxMac.Text = computer.MacAddress;
+                ComputerViewList.Children.Add(view);
+            }
         }
 
         // Läd eine Konfiguration aus einer .xml Datei
         private void OpenConfiguration()
         {
-            OpenFileDialog XmlFileDialog = new OpenFileDialog() { Filter = "XML Dateien (*.xml)|*.xml" };
+            XmlFileDialog = new OpenFileDialog() { Filter = "XML Dateien (*.xml)|*.xml" };
 
             // Fragen welche Datei geöffnet werden soll
             if (XmlFileDialog.ShowDialog() == true)
@@ -62,8 +69,18 @@ namespace PC_Verwaltung
 
                 try
                 {
-                    // Konvertiere die Daten der XML Datei in Computer Objekte
-                    Computers = (List<Computer>)Xml.Deserialize(Reader);
+                    ComputerViewList.Children.Clear();
+
+                    // Konvertiere die Daten der XML Datei in Computer Objekte und platziere sie in der Anzeigeliste
+                    foreach (Computer computer in (List<Computer>)Xml.Deserialize(Reader))
+                    {
+                        ComputerView view = new ComputerView();
+                        view.TextBoxId.Text = computer.ComputerId.ToString();
+                        view.TextBoxName.Text = computer.ComputerName;
+                        view.TextBoxMac.Text = computer.MacAddress;
+                        view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
+                        ComputerViewList.Children.Add(view);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -81,11 +98,19 @@ namespace PC_Verwaltung
         // Schreibt die derzeitige Konfiguration in eine .xml Datei
         private void SaveConfiguration()
         {
-            SaveFileDialog XmlFileDialog = new SaveFileDialog{ Filter = "XML Dateien (*.xml)|*.xml" };
+            XmlFileDialog = new SaveFileDialog{ Filter = "XML Dateien (*.xml)|*.xml" };
 
             // Fragen wo die Datei gespeichert werden soll
             if (XmlFileDialog.ShowDialog() == true)
             {
+                // Liste mit allen Computern, die dem derzeitigen Benutzer zugewiesen sind
+                List<Computer> Computers = new List<Computer>();
+
+                foreach (ComputerView view in ComputerViewList.Children)
+                {
+                    Computers.Add(new Computer(int.Parse(view.TextBoxId.Text), view.TextBoxName.Text, view.TextBoxMac.Text));
+                }
+
                 // Erstelle Schreibeobjekt
                 FileStream Writer = new FileStream(XmlFileDialog.FileName, FileMode.Create, FileAccess.Write);
 
@@ -111,6 +136,26 @@ namespace PC_Verwaltung
             }
         }
 
+        // Callback Funktion zum Löschen eines Computers (wird Event handler übergeben)
+        private void DeleteComputer(ComputerView computer)
+        {
+            // Computer auf Liste entfernen
+            ComputerViewList.Children.Remove(computer);
+        }
+
+        // Event handler zum Hinzufügen einer Konfiguration
+        private void AddNewClickEvent(object sender, RoutedEventArgs e)
+        {
+            // Leeren Computer erstellen
+            ComputerView view = new ComputerView();
+
+            // Callback Funktion dem Löschen Event handler übergeben
+            view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
+
+            // Computer an erster Stelle in die Liste einfügen
+            ComputerViewList.Children.Insert(0, view);
+        }
+
         // Event handler zum Öffnen einer Konfiguration
         private void OpenClickEvent(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -119,6 +164,12 @@ namespace PC_Verwaltung
 
         // Event handler zum Speichern einer Konfiguration
         private void SaveClickEvent(object sender, System.Windows.RoutedEventArgs e)
+        {
+            SaveConfiguration();
+        }
+
+        // Event handler zum Speichern einer Konfiguration
+        private void SaveAsClickEvent(object sender, System.Windows.RoutedEventArgs e)
         {
             SaveConfiguration();
         }
@@ -138,12 +189,6 @@ namespace PC_Verwaltung
                 + "hoffentlich passables Schulprojekt zu sein.\n\n"
                 + "Erstellt mit Liebe von Jeremy Peters.", 
                 FindResource("AppTitle").ToString());
-        }
-
-        // for debugging
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ComputersViewList.Children.Add(new ComputerView());
         }
     }
 }
