@@ -40,7 +40,6 @@ namespace PC_Verwaltung
             // Close(); // for debugging
         }
 
-        // Läd eine Konfiguration aus einer .xml Datei
         private void UpdateConfiguration(List<Computer> computers)
         {
             ComputerViewList.Children.Clear();
@@ -108,6 +107,7 @@ namespace PC_Verwaltung
 
                 foreach (ComputerView view in ComputerViewList.Children)
                 {
+                    // TODO: check for illegal characters
                     Computers.Add(new Computer(int.Parse(view.TextBoxId.Text), view.TextBoxName.Text, view.TextBoxMac.Text));
                 }
 
