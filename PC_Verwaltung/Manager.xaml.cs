@@ -61,8 +61,7 @@ namespace PC_Verwaltung
                 view.TextBoxName.Text = computer.Name;
                 view.TextBoxMac.Text = computer.MacAddress;
 
-                // Löschen Funktion dem Event handler übergeben
-                view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
+                AddHandlers(view);
 
                 // Computer der Liste hinzufügen
                 ComputerViewList.Children.Add(view);
@@ -151,6 +150,14 @@ namespace PC_Verwaltung
             }
         }
 
+        // Übergibt die Event Funktionen an die ComputerView Event handler
+        private void AddHandlers(ComputerView view)
+        {
+            view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
+            view.MoveUp += new ComputerView.MoveUpHandler(MoveUpComputer);
+            view.MoveDown += new ComputerView.MoveDownHandler(MoveDownComputer);
+        }
+
         // Funktion zum Löschen eines Computers (wird Event handler übergeben)
         private void DeleteComputer(ComputerView computer)
         {
@@ -159,14 +166,25 @@ namespace PC_Verwaltung
             UpdateIndexes();
         }
 
+        // Funktion zum Verschieben eines Computers nach oben (wird Event handler übergeben)
+        private void MoveUpComputer(ComputerView computer)
+        {
+
+        }
+
+        // Funktion zum Verschieben eines Computers nach unten (wird Event handler übergeben)
+        private void MoveDownComputer(ComputerView computer)
+        {
+
+        }
+
         // Event handler zum Hinzufügen einer Konfiguration
         private void AddNewClickEvent(object sender, RoutedEventArgs e)
         {
             // Leeren Computer erstellen
             ComputerView view = new ComputerView();
 
-            // Löschen Funktion dem Event handler übergeben
-            view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
+            AddHandlers(view);
 
             // Computer an erster Stelle in die Liste einfügen
             ComputerViewList.Children.Insert(0, view);

@@ -24,8 +24,8 @@
             <Label x:Name="LabelMac" Content="MAC-Adresse:" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0" FontSize="14"/>
             <TextBox x:Name="TextBoxName" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" FontSize="14" Margin="5" Panel.ZIndex="1"/>
             <TextBox x:Name="TextBoxMac" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="4" FontSize="14" Margin="5" Panel.ZIndex="1"/>
-            <Button x:Name="ButtonUp" Content="h" FontFamily="Wingdings 3" FontSize="34" Click="DeleteClickEvent" Background="White" BorderThickness="0" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Width="35" Height="35" VerticalAlignment="Center"/>
-            <Button x:Name="ButtonDown" Content="i" FontFamily="Wingdings 3" FontSize="34" Click="DeleteClickEvent" Background="White" BorderThickness="0" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" Width="35" Height="35" VerticalAlignment="Center"/>
+            <Button x:Name="ButtonMoveUp" Content="h" FontFamily="Wingdings 3" FontSize="34" Click="MoveUpClickEvent" Background="White" BorderThickness="0" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" Width="35" Height="35" VerticalAlignment="Center"/>
+            <Button x:Name="ButtonMoveDown" Content="i" FontFamily="Wingdings 3" FontSize="34" Click="MoveDownClickEvent" Background="White" BorderThickness="0" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" Width="35" Height="35" VerticalAlignment="Center"/>
             <Button x:Name="ButtonDelete" Content="3" FontFamily="Wingdings 2" FontSize="34" Click="DeleteClickEvent" Background="White" BorderThickness="0" Grid.Column="4" Grid.Row="0" HorizontalAlignment="Center" Width="35" Height="35" VerticalAlignment="Center"/>
         </Grid>
     </Border>

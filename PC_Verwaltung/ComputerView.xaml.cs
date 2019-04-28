@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace PC_Verwaltung
 {
@@ -12,12 +13,34 @@ namespace PC_Verwaltung
             InitializeComponent();
         }
 
+        // Event handler zum Verschieben dieses ComputerView Objektes nach oben
+        public event MoveUpHandler MoveUp;
+        public delegate void MoveUpHandler(ComputerView computer);
+
+        // Event handler zum Verschieben dieses ComputerView Objektes nach unten
+        public event MoveDownHandler MoveDown;
+        public delegate void MoveDownHandler(ComputerView computer);
+
         // Event handler zum Löschen dieses ComputerView Objektes
         public event DeleteHandler Delete;
         public delegate void DeleteHandler(ComputerView computer);
 
+        // Event handler des Nach-Oben-Verschieben Knopfes
+        private void MoveUpClickEvent(object sender, RoutedEventArgs e)
+        {
+            // Delete Event auslösen
+            MoveUp?.Invoke(this);
+        }
+
+        // Event handler des Nach-Unten-Verschieben Knopfes
+        private void MoveDownClickEvent(object sender, RoutedEventArgs e)
+        {
+            // Delete Event auslösen
+            MoveDown?.Invoke(this);
+        }
+
         // Event handler des Löschen Knopfes
-        private void DeleteClickEvent(object sender, System.Windows.RoutedEventArgs e)
+        private void DeleteClickEvent(object sender, RoutedEventArgs e)
         {
             // Delete Event auslösen
             Delete?.Invoke(this);
