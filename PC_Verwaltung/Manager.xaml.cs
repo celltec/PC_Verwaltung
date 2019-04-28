@@ -16,8 +16,8 @@ namespace PC_Verwaltung
         // Xml Konverter Objekt
         private readonly XmlSerializer Xml;
 
-        // Dateidialog Objekt
-        private FileDialog XmlFileDialog;
+        // Pfad der XML Datei
+        private string XmlFilePath = "";
 
         public Manager()
         {
@@ -38,6 +38,15 @@ namespace PC_Verwaltung
             Xml = new XmlSerializer(typeof(List<Computer>), new XmlRootAttribute(User.CurrentUser.UserName));
         }
 
+        // Kennziffern der Computeransichten aktualisieren
+        private void UpdateIndexes()
+        {
+            foreach (ComputerView computer in ComputerViewList.Children)
+            {
+                computer.TextBoxId.Text = (ComputerViewList.Children.IndexOf(computer) + 1).ToString();
+            }
+        }
+
         // Platziere Computer Objekte in der Anzeigeliste
         private void UpdateConfiguration(List<Computer> computers)
         {
@@ -49,8 +58,7 @@ namespace PC_Verwaltung
                 ComputerView view = new ComputerView();
 
                 // Inhalt setzen
-                view.TextBoxId.Text = computer.ComputerId.ToString();
-                view.TextBoxName.Text = computer.ComputerName;
+                view.TextBoxName.Text = computer.Name;
                 view.TextBoxMac.Text = computer.MacAddress;
 
                 // Löschen Funktion dem Event handler übergeben
@@ -61,22 +69,25 @@ namespace PC_Verwaltung
             }
         }
 
-        // Läd eine Konfiguration aus einer .xml Datei
+        // Läd eine Konfiguration aus einer XML Datei
         private void OpenConfiguration()
         {
-            XmlFileDialog = new OpenFileDialog() { Filter = "XML Dateien (*.xml)|*.xml" };
+            OpenFileDialog XmlFileDialog = new OpenFileDialog() { Filter = "XML Dateien (*.xml)|*.xml" };
 
             // Fragen welche Datei geöffnet werden soll
             if (XmlFileDialog.ShowDialog() == true)
             {
+                // Globalen Dateipfad der XML setzen
+                XmlFilePath = XmlFileDialog.FileName;
+
                 // Erstelle Leseobjekt
-                FileStream Reader = new FileStream(XmlFileDialog.FileName, FileMode.Open, FileAccess.Read);
+                FileStream Reader = new FileStream(XmlFilePath, FileMode.Open, FileAccess.Read);
 
                 try
                 {
                     // Konvertiere die Daten der XML Datei in Computer Objekte
                     UpdateConfiguration((List<Computer>)Xml.Deserialize(Reader));
-
+                    UpdateIndexes();
                 }
                 catch (Exception e)
                 {
@@ -91,7 +102,7 @@ namespace PC_Verwaltung
             }
         }
 
-        // Schreibt die derzeitige Konfiguration in die geöffnete .xml Datei
+        // Schreibt die derzeitige Konfiguration in die geöffnete XML Datei
         private void SaveConfiguration()
         {
             // Liste mit allen Computern, die dem derzeitigen Benutzer zugewiesen sind
@@ -100,11 +111,11 @@ namespace PC_Verwaltung
             foreach (ComputerView view in ComputerViewList.Children)
             {
                 // TODO: check for empty or illegal characters
-                Computers.Add(new Computer(int.Parse(view.TextBoxId.Text), view.TextBoxName.Text, view.TextBoxMac.Text));
+                Computers.Add(new Computer(view.TextBoxName.Text, view.TextBoxMac.Text));
             }
 
             // Erstelle Schreibeobjekt
-            FileStream Writer = new FileStream(XmlFileDialog.FileName, FileMode.Create, FileAccess.Write);
+            FileStream Writer = new FileStream(XmlFilePath, FileMode.Create, FileAccess.Write);
 
             // Für bessere Ästhetik unnötige Angaben über den Namespace unterdrücken 
             XmlSerializerNamespaces EmptyNameSpace = new XmlSerializerNamespaces();
@@ -127,14 +138,16 @@ namespace PC_Verwaltung
             }
         }
 
-        // Ruft die Methode zum Speichern für eine neue .xml Datei auf
+        // Ruft die Methode zum Speichern für eine neue XML Datei auf
         private void SaveAsConfiguration()
         {
-            XmlFileDialog = new SaveFileDialog{ Filter = "XML Dateien (*.xml)|*.xml" };
+            SaveFileDialog XmlFileDialog = new SaveFileDialog{ Filter = "XML Dateien (*.xml)|*.xml" };
 
             // Fragen wo die Datei gespeichert werden soll
             if (XmlFileDialog.ShowDialog() == true)
             {
+                // Globalen Dateipfad der XML setzen
+                XmlFilePath = XmlFileDialog.FileName;
                 SaveConfiguration();
             }
         }
@@ -144,6 +157,7 @@ namespace PC_Verwaltung
         {
             // Computer auf Liste entfernen
             ComputerViewList.Children.Remove(computer);
+            UpdateIndexes();
         }
 
         // Event handler zum Hinzufügen einer Konfiguration
@@ -157,6 +171,7 @@ namespace PC_Verwaltung
 
             // Computer an erster Stelle in die Liste einfügen
             ComputerViewList.Children.Insert(0, view);
+            UpdateIndexes();
         }
 
         // Event handler zum Öffnen einer Konfiguration
@@ -165,10 +180,11 @@ namespace PC_Verwaltung
             OpenConfiguration();
         }
 
-        // Event handler zum Speichern der Konfiguration
+        // Event handler zum Speichern der Konfiguration in einer bereits geöffneten XML Datei
         private void SaveClickEvent(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (XmlFileDialog == null || XmlFileDialog.FileName == "")
+            // Auswahldialog anzeigen, wenn noch keine Datei geöffnet wurde wurde
+            if (XmlFilePath == "")
             {
                 SaveAsConfiguration();
             }
@@ -178,7 +194,7 @@ namespace PC_Verwaltung
             }
         }
 
-        // Event handler zum Speichern der Konfiguration in einer neuen Datei
+        // Event handler zum Speichern der Konfiguration in einer neuen XML Datei
         private void SaveAsClickEvent(object sender, System.Windows.RoutedEventArgs e)
         {
             SaveAsConfiguration();

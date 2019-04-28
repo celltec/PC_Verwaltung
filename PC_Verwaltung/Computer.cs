@@ -5,18 +5,16 @@
     /// </Zusammenfassung>
     public class Computer
     {
-        public int ComputerId { get; set; }
-        public string ComputerName { get; set; }
+        public string Name { get; set; }
         public string MacAddress { get; set; }
 
         // Leerer Standardkonstruktor
         public Computer(){}
 
         // Konstruktor setzt übergebene Attribute
-        public Computer(int computerId, string computerName, string macAddress)
+        public Computer(string name, string macAddress)
         {
-            ComputerId = computerId;
-            ComputerName = computerName;
+            Name = name;
             MacAddress = macAddress;
         }
     }
