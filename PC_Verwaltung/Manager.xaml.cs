@@ -43,7 +43,7 @@ namespace PC_Verwaltung
         {
             foreach (ComputerView computer in ComputerViewList.Children)
             {
-                computer.TextBoxId.Text = (ComputerViewList.Children.IndexOf(computer) + 1).ToString();
+                computer.LabelIndex.Content = (ComputerViewList.Children.IndexOf(computer) + 1).ToString();
             }
         }
 
@@ -110,7 +110,6 @@ namespace PC_Verwaltung
 
             foreach (ComputerView view in ComputerViewList.Children)
             {
-                // TODO: check for empty or illegal characters
                 Computers.Add(new Computer(view.TextBoxName.Text, view.TextBoxMac.Text));
             }
 
@@ -171,17 +170,18 @@ namespace PC_Verwaltung
 
             // Computer an erster Stelle in die Liste einfügen
             ComputerViewList.Children.Insert(0, view);
+            //TODO: option to set "insert at beginning or end"
             UpdateIndexes();
         }
 
         // Event handler zum Öffnen einer Konfiguration
-        private void OpenClickEvent(object sender, System.Windows.RoutedEventArgs e)
+        private void OpenClickEvent(object sender, RoutedEventArgs e)
         {
             OpenConfiguration();
         }
 
         // Event handler zum Speichern der Konfiguration in einer bereits geöffneten XML Datei
-        private void SaveClickEvent(object sender, System.Windows.RoutedEventArgs e)
+        private void SaveClickEvent(object sender, RoutedEventArgs e)
         {
             // Auswahldialog anzeigen, wenn noch keine Datei geöffnet wurde wurde
             if (XmlFilePath == "")
@@ -195,19 +195,19 @@ namespace PC_Verwaltung
         }
 
         // Event handler zum Speichern der Konfiguration in einer neuen XML Datei
-        private void SaveAsClickEvent(object sender, System.Windows.RoutedEventArgs e)
+        private void SaveAsClickEvent(object sender, RoutedEventArgs e)
         {
             SaveAsConfiguration();
         }
 
         // Event handler zum Schließen der Anwendung
-        private void CloseClickEvent(object sender, System.Windows.RoutedEventArgs e)
+        private void CloseClickEvent(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
         // Event handler zum Anzeigen des Infofensters
-        private void AboutClickEvent(object sender, System.Windows.RoutedEventArgs e)
+        private void AboutClickEvent(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(
                 "Dies ist eine einfache PC Verwaltung\n"
