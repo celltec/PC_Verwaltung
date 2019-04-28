@@ -38,12 +38,13 @@ namespace PC_Verwaltung
             Xml = new XmlSerializer(typeof(List<Computer>), new XmlRootAttribute(User.CurrentUser.UserName));
         }
 
-        // Kennziffern der Computeransichten aktualisieren
+        // Nummerierung der Computeransichten aktualisieren
+        // TODO: make event triggered
         private void UpdateIndexes()
         {
-            foreach (ComputerView computer in ComputerViewList.Children)
+            foreach (ComputerView view in ComputerViewList.Children)
             {
-                computer.LabelIndex.Content = (ComputerViewList.Children.IndexOf(computer) + 1).ToString();
+                view.LabelIndex.Content = (ComputerViewList.Children.IndexOf(view) + 1).ToString();
             }
         }
 
@@ -153,29 +154,45 @@ namespace PC_Verwaltung
         // Übergibt die Event Funktionen an die ComputerView Event handler
         private void AddHandlers(ComputerView view)
         {
-            view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
             view.MoveUp += new ComputerView.MoveUpHandler(MoveUpComputer);
             view.MoveDown += new ComputerView.MoveDownHandler(MoveDownComputer);
-        }
-
-        // Funktion zum Löschen eines Computers (wird Event handler übergeben)
-        private void DeleteComputer(ComputerView computer)
-        {
-            // Computer auf Liste entfernen
-            ComputerViewList.Children.Remove(computer);
-            UpdateIndexes();
+            view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
         }
 
         // Funktion zum Verschieben eines Computers nach oben (wird Event handler übergeben)
-        private void MoveUpComputer(ComputerView computer)
+        private void MoveUpComputer(ComputerView view)
         {
+            int viewIndex = ComputerViewList.Children.IndexOf(view);
 
+            if(viewIndex > 0)
+            {
+                ComputerViewList.Children.Remove(view);
+                ComputerViewList.Children.Insert(viewIndex - 1, view);
+            }
+
+            UpdateIndexes();
         }
 
         // Funktion zum Verschieben eines Computers nach unten (wird Event handler übergeben)
-        private void MoveDownComputer(ComputerView computer)
+        private void MoveDownComputer(ComputerView view)
         {
+            int viewIndex = ComputerViewList.Children.IndexOf(view);
 
+            if (viewIndex < ComputerViewList.Children.Count - 1)
+            {
+                ComputerViewList.Children.Remove(view);
+                ComputerViewList.Children.Insert(viewIndex + 1, view);
+            }
+
+            UpdateIndexes();
+        }
+
+        // Funktion zum Löschen eines Computers (wird Event handler übergeben)
+        private void DeleteComputer(ComputerView view)
+        {
+            // Computer auf Liste entfernen
+            ComputerViewList.Children.Remove(view);
+            UpdateIndexes();
         }
 
         // Event handler zum Hinzufügen einer Konfiguration
@@ -188,7 +205,6 @@ namespace PC_Verwaltung
 
             // Computer an erster Stelle in die Liste einfügen
             ComputerViewList.Children.Insert(0, view);
-            //TODO: option to set "insert at beginning or end"
             UpdateIndexes();
         }
 
