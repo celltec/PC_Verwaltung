@@ -30,7 +30,7 @@ namespace PC_Verwaltung
                 // Anwendung schließen, wenn niemand angemeldet wurde
                 Close();
             }
-            */
+            //*/
 
             User.CurrentUser = Register.Users[0]; // for debugging
 
@@ -196,7 +196,7 @@ namespace PC_Verwaltung
         }
 
         // Event handler zum Hinzufügen einer Konfiguration
-        private void AddNewClickEvent(object sender, RoutedEventArgs e)
+        private void AddClickEvent(object sender, RoutedEventArgs e)
         {
             // Leeren Computer erstellen
             ComputerView view = new ComputerView();

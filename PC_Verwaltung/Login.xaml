@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PC_Verwaltung"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <BitmapImage x:Key="ImageComputer" UriSource="Images/Computer.png"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"/>
@@ -18,7 +21,7 @@
             <RowDefinition Height="45"/>
             <RowDefinition Height="77"/>
         </Grid.RowDefinitions>
-        <Image x:Name="PictureComputer" Source="{StaticResource pictureComputerResource}" Grid.ColumnSpan="3"/>
+        <Image x:Name="PictureComputer" Source="{StaticResource ImageComputer}" Grid.ColumnSpan="3" Margin="0,35,0,20"/>
         <Label x:Name="LabelTitle" Content="PC Verwaltung" FontSize="50" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Courier New" Margin="15,0"/>
         <Label x:Name="LabelName" Content="Name:" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="24" Margin="0"/>
         <Label x:Name="LabelPassword" Content="Passwort:" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="24" Margin="0"/>

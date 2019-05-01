@@ -5,9 +5,28 @@
              xmlns:clr="clr-namespace:System;assembly=mscorlib"
              StartupUri="Manager.xaml">
     <Application.Resources>
+        <!-- Globaler Titel für die Anwendung -->
         <clr:String x:Key="AppTitle">PC Verwaltung</clr:String>
-        <clr:Double x:Key="Height">720</clr:Double>
-        <clr:Double x:Key="Width">1024</clr:Double>
-        <BitmapImage x:Key="pictureComputerResource" UriSource="Images/Computer.jpg"/>
+        <!-- Eigene Knopfgestaltung um darauf Bilder anzeigen zu können -->
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <!-- Oberfläche für das Bild reservieren -->
+                        <StackPanel Background="{TemplateBinding Background}"/>
+                        <ControlTemplate.Triggers>
+                            <!-- Den Schatten zeigen, wenn der Knopf gedrückt wurde -->
+                            <Trigger Property="Button.IsPressed" Value="True" >
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect ShadowDepth="0" BlurRadius="2"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>
