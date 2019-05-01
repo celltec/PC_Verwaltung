@@ -7,7 +7,7 @@ namespace PC_Verwaltung
   	{
     	public static Window Window;
 
-    	public static void Navigate(UserControl content)
+    	public static void Navigate(Page content)
     	{
             Window.Content = content;
     	}

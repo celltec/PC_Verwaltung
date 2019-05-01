@@ -60,7 +60,7 @@ namespace PC_Verwaltung
 
                 // Inhalt setzen
                 view.TextBoxName.Text = computer.Name;
-                view.TextBoxMac.Text = computer.MacAddress;
+                view.TextBoxMac.Text = computer.MacAddr;
 
                 AddHandlers(view);
 

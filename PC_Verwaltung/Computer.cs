@@ -6,16 +6,16 @@
     public class Computer
     {
         public string Name { get; set; }
-        public string MacAddress { get; set; }
+        public string MacAddr { get; set; }
 
         // Leerer Standardkonstruktor
         public Computer(){}
 
         // Konstruktor setzt übergebene Attribute
-        public Computer(string name, string macAddress)
+        public Computer(string name, string mac)
         {
             Name = name;
-            MacAddress = macAddress;
+            MacAddr = mac;
         }
     }
 }

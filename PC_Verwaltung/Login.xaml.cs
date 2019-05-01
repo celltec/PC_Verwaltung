@@ -8,7 +8,7 @@ namespace PC_Verwaltung
     /// <Zusammenfassung>
     /// Die Klasse Login beinhaltet die Logik für das Anmelden
     /// </Zusammenfassung>
-    public partial class Login : UserControl
+    public partial class Login : Page
     {
         // Fenster Initialisieren
         public Login()

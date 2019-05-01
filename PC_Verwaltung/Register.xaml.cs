@@ -10,7 +10,7 @@ namespace PC_Verwaltung
     /// <Zusammenfassung>
     /// Die Klasse Login beinhaltet die Logik für das Registrieren
     /// </Zusammenfassung>
-    public partial class Register : UserControl
+    public partial class Register : Page
     {
         // Benutzerliste anlegen und Standardbenutzer einfügen
         internal static List<User> Users { get; } = new List<User>() { new User() };
