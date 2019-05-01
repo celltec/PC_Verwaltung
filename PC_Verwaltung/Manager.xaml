@@ -17,7 +17,7 @@
         <Image x:Key="MenuIconClose" Source="Images/Close.png"/>
     </Window.Resources>
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Background="#FFFFFF" FontSize="14">
+        <Menu DockPanel.Dock="Top" Background="White" FontSize="14">
             <MenuItem Header="_Datei">
                 <MenuItem Header="_Öffnen..." Click="OpenClickEvent" Icon="{StaticResource MenuIconOpen}"/>
                 <MenuItem Header="_Speichern als..." Click="SaveAsClickEvent" Icon="{StaticResource MenuIconSave}"/>
@@ -28,13 +28,13 @@
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition/>
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>
                 <RowDefinition Height="120"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="7" Grid.RowSpan="3" Margin="15,15,0,15">
                 <ScrollViewer Margin="0,7,0,7">

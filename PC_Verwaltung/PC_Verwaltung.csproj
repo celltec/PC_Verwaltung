@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Computer.ico</ApplicationIcon>
+    <ApplicationIcon>Images\Computer.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data, Version=8.0.15.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -166,7 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Add.png" />
-    <Resource Include="Images\Computer.ico" />
     <Resource Include="Images\Computer.png" />
     <Resource Include="Images\Delete.png" />
     <Resource Include="Images\Down.png" />
@@ -175,13 +174,13 @@
     <Resource Include="Images\Up.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Computer.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Close.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\SaveAs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Computer.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
