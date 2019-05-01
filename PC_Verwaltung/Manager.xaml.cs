@@ -23,23 +23,17 @@ namespace PC_Verwaltung
         {
             InitializeComponent();
 
-            /*
             // Anmeldung aufrufen
             if (new Entry().ShowDialog() == false)
             {
                 // Anwendung schließen, wenn niemand angemeldet wurde
                 Close();
             }
-            //*/
 
-            User.CurrentUser = Register.Users[0]; // for debugging
-
-            // TODO: change implementation of user assignment
             Xml = new XmlSerializer(typeof(List<Computer>), new XmlRootAttribute(User.CurrentUser.UserName));
         }
 
         // Nummerierung der Computeransichten aktualisieren
-        // TODO: make event triggered
         private void UpdateIndexes()
         {
             foreach (ComputerView view in ComputerViewList.Children)
