@@ -66,7 +66,7 @@ namespace PC_Verwaltung
                 RectUserNameError.Opacity = 1;
                 return;
             }
-            else if(PasswordBox.Password.Length < 5)
+            else if (PasswordBox.Password.Length < 5)
             {
                 // Fehlernachricht setzen und rote Box ums Passwortfeld sichtbar machen
                 LabelErrorMessage.Content = "Das Passwort muss mind. 5 Zeichen lang sein";

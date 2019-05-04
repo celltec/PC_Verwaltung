@@ -2,8 +2,11 @@
 using System.IO;
 using System.Windows;
 using Microsoft.Win32;
+using System.Windows.Media;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using System.Windows.Media.Animation;
 
 namespace PC_Verwaltung
 {
@@ -157,30 +160,69 @@ namespace PC_Verwaltung
             view.Delete += new ComputerView.DeleteHandler(DeleteComputer);
         }
 
-        // Funktion zum Verschieben eines Computers nach oben (wird Event handler übergeben)
+        // Enum für bessere Leserlichkeit
+        private enum Direction { Up = -1, Down = 1 };
+
+        // Funktion zum Initiieren des Verschiebens eines Computers nach oben (wird Event handler übergeben)
         private void MoveUpComputer(ComputerView view)
         {
             int viewIndex = ComputerViewList.Children.IndexOf(view);
 
-            if(viewIndex > 0)
+            // Prüfen, ob dieser Computer der Erste in der Liste ist
+            if (viewIndex > 0)
             {
-                ComputerViewList.Children.Remove(view);
-                ComputerViewList.Children.Insert(viewIndex - 1, view);
+                MoveComputer(viewIndex, Direction.Up);
             }
-
-            UpdateIndexes();
         }
 
-        // Funktion zum Verschieben eines Computers nach unten (wird Event handler übergeben)
+        // Funktion zum Initiieren des Verschiebens eines Computers nach unten (wird Event handler übergeben)
         private void MoveDownComputer(ComputerView view)
         {
             int viewIndex = ComputerViewList.Children.IndexOf(view);
 
+            // Prüfen, ob dieser Computer der Letzte in der Liste ist
             if (viewIndex < ComputerViewList.Children.Count - 1)
             {
-                ComputerViewList.Children.Remove(view);
-                ComputerViewList.Children.Insert(viewIndex + 1, view);
+                MoveComputer(viewIndex, Direction.Down);
             }
+        }
+
+        // Funktion zum animierten Verschieben eines Computers in eine bestimmte Richtung
+        private async void MoveComputer(int viewIndex, Direction direction)
+        {
+            // Neue Referenz auf die Objecte erstellen, um local damit arbeiten zu können
+            ComputerView currentView = (ComputerView)ComputerViewList.Children[viewIndex];
+            ComputerView nextView = (ComputerView)ComputerViewList.Children[viewIndex + (int)direction];
+
+            // Ablauf der Animations definieren
+            DoubleAnimation up = new DoubleAnimation(-currentView.ActualHeight, ((Duration)FindResource("AnimationDuration")).TimeSpan);
+            DoubleAnimation down = new DoubleAnimation(currentView.ActualHeight, ((Duration)FindResource("AnimationDuration")).TimeSpan);
+
+            // Reset Animation ohne Zeitspanne, weil mit FillBehavior.Stop manchmal unerwünschte Artefakte auftrefen 
+            DoubleAnimation reset = new DoubleAnimation(0, TimeSpan.FromSeconds(0));
+
+            // Animation anstoßen
+            if (direction == Direction.Up)
+            {
+                currentView.AnimatedMoving.BeginAnimation(TranslateTransform.YProperty, up);
+                nextView.AnimatedMoving.BeginAnimation(TranslateTransform.YProperty, down);
+            }
+            else
+            {
+                currentView.AnimatedMoving.BeginAnimation(TranslateTransform.YProperty, down);
+                nextView.AnimatedMoving.BeginAnimation(TranslateTransform.YProperty, up);
+            }
+
+            // Zeit zum Abspielen der Animation lassen
+            await Task.Delay(((Duration)FindResource("AnimationDuration")).TimeSpan);
+
+            // Versatz zurücksetzen
+            currentView.AnimatedMoving.BeginAnimation(TranslateTransform.YProperty, reset);
+            nextView.AnimatedMoving.BeginAnimation(TranslateTransform.YProperty, reset);
+
+            // View aus alter Stelle entfernen und an neuer einfügen
+            ComputerViewList.Children.Remove(currentView);
+            ComputerViewList.Children.Insert(viewIndex + (int)direction, currentView);
 
             UpdateIndexes();
         }
@@ -245,7 +287,7 @@ namespace PC_Verwaltung
                 "Dies ist eine einfache PC Verwaltung\n"
                 + "ohne wirklichen Nutzen, außer ein\n"
                 + "hoffentlich passables Schulprojekt zu sein.\n\n"
-                + "Erstellt mit Liebe von Jeremy Peters.", 
+                + "Erstellt mit \u2764 von Jeremy Peters.", 
                 FindResource("AppTitle").ToString());
         }
     }

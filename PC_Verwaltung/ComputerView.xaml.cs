@@ -44,7 +44,7 @@ namespace PC_Verwaltung
         private async void DeleteClickEvent(object sender, RoutedEventArgs e)
         {
             // Zeit zum Abspielen der Animation lassen
-            await Task.Delay((int)FindResource("AnimationTime"));
+            await Task.Delay(((Duration)FindResource("AnimationDuration")).TimeSpan);
 
             // Delete Event auslösen
             Delete?.Invoke(this);

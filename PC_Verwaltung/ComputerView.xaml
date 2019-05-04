@@ -4,12 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PC_Verwaltung"
-             xmlns:clr="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              RenderTransformOrigin="0.5,0.5" >
              <!-- Startpunkt in die Mitte setzen, damit die Ansichten nicht aus der Ecke reinzoomen -->
     <UserControl.Resources>
-        <clr:Int32 x:Key="AnimationTime">200</clr:Int32>
         <ImageBrush x:Key="IconDelete" ImageSource="Images/Delete.png"/>
         <ImageBrush x:Key="IconUp" ImageSource="Images/Up.png"/>
         <ImageBrush x:Key="IconDown" ImageSource="Images/Down.png"/>
@@ -18,6 +16,7 @@
         <TransformGroup>
             <!-- Ansichten minimiert initiieren -->
             <ScaleTransform x:Name="AnimatedScaling" ScaleX="0" ScaleY="0"/>
+            <TranslateTransform x:Name="AnimatedMoving"/>
         </TransformGroup>
     </UserControl.RenderTransform>
     <UserControl.Triggers>
@@ -25,8 +24,8 @@
             <BeginStoryboard>
                 <!-- Beim Laden auf originale Größe skalieren -->
                 <Storyboard TargetName="AnimatedScaling">
-                    <DoubleAnimation Storyboard.TargetProperty="ScaleX" To="1" Duration="0:0:0.2"/>
-                    <DoubleAnimation Storyboard.TargetProperty="ScaleY" To="1" Duration="0:0:0.2"/>
+                    <DoubleAnimation Storyboard.TargetProperty="ScaleX" To="1" Duration="{StaticResource AnimationDuration}"/>
+                    <DoubleAnimation Storyboard.TargetProperty="ScaleY" To="1" Duration="{StaticResource AnimationDuration}"/>
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -34,13 +33,13 @@
             <BeginStoryboard>
                 <!-- Mit dem Löschevent wieder minimieren (Das Object wird erst nach ablauf der Animation tatsächlich gelöscht) -->
                 <Storyboard TargetName="AnimatedScaling">
-                    <DoubleAnimation Storyboard.TargetProperty="ScaleX" To="0" Duration="0:0:0.2"/>
-                    <DoubleAnimation Storyboard.TargetProperty="ScaleY" To="0" Duration="0:0:0.2"/>
+                    <DoubleAnimation Storyboard.TargetProperty="ScaleX" To="0" Duration="{StaticResource AnimationDuration}"/>
+                    <DoubleAnimation Storyboard.TargetProperty="ScaleY" To="0" Duration="{StaticResource AnimationDuration}"/>
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
     </UserControl.Triggers>
-    <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="7" Margin="15,10,15,10">
+    <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="7" Background="White" Margin="15,10,15,10">
         <DockPanel>
             <DockPanel DockPanel.Dock="Top">
                 <Label x:Name="LabelIndex" Content="ID" FontSize="30" Margin="7,0,0,0" VerticalAlignment="Center"/>

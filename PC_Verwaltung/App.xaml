@@ -5,8 +5,8 @@
              xmlns:clr="clr-namespace:System;assembly=mscorlib"
              StartupUri="Manager.xaml">
     <Application.Resources>
-        <!-- Globaler Titel für die Anwendung -->
         <clr:String x:Key="AppTitle">PC Verwaltung</clr:String>
+        <Duration x:Key="AnimationDuration">0:0:0.15</Duration>
         <!-- Eigene Knopfgestaltung um darauf Bilder anzeigen zu können -->
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Template">
