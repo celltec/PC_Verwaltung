@@ -16,7 +16,7 @@ namespace PC_Verwaltung
             return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
         }
 
-        // Wandelt das byte array in einen leserlichen String um 
+        // Wandelt das byte array in einen leserlichen String um
         public static string GetHashString(string inputString)
         {
             StringBuilder sb = new StringBuilder();

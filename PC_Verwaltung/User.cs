@@ -13,7 +13,7 @@
         private const string DEFAULT_NAME = "admin";
         private const string DEFAULT_PASSWORD_HASH = "8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918";
 
-        private readonly string password;
+        private readonly string Password;
         public string UserName { get; }
         public string Email { get; set; }
         public string DisplayName { get; set; }
@@ -26,14 +26,14 @@
         public User()
         {
             UserName = DEFAULT_NAME;
-            password = DEFAULT_PASSWORD_HASH;
+            Password = DEFAULT_PASSWORD_HASH;
         }
 
         // Konstruktor setzt übergebene Attribute
         public User(string userName, string pw, string email = "", string displayName = "", string department = "")
         {
             UserName = userName.ToLower();
-            password = SecureHash.GetHashString(pw);
+            Password = SecureHash.GetHashString(pw);
             Email = email;
             DisplayName = displayName;
             Department = department;
@@ -49,7 +49,7 @@
                 return LoginResult.NameError;
             }
             // Passworthash prüfen
-            else if (SecureHash.GetHashString(pw) != password)
+            else if (SecureHash.GetHashString(pw) != Password)
             {
                 // Bei Ungleichheit Error zurückgeben
                 return LoginResult.PasswordError;

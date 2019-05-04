@@ -23,12 +23,16 @@ namespace PC_Verwaltung
         {
             InitializeComponent();
 
+            /*
             // Anmeldung aufrufen
             if (new Entry().ShowDialog() == false)
             {
                 // Anwendung schließen, wenn niemand angemeldet wurde
                 Close();
             }
+            //*/
+
+            User.CurrentUser = Register.Users[0]; // for debugging
 
             Xml = new XmlSerializer(typeof(List<Computer>), new XmlRootAttribute(User.CurrentUser.UserName));
         }
@@ -54,7 +58,7 @@ namespace PC_Verwaltung
 
                 // Inhalt setzen
                 view.TextBoxName.Text = computer.Name;
-                view.TextBoxMac.Text = computer.MacAddr;
+                view.TextBoxMac.Text = computer.MacAddress;
 
                 AddHandlers(view);
 

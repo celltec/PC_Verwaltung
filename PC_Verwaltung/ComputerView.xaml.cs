@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace PC_Verwaltung
@@ -40,10 +41,14 @@ namespace PC_Verwaltung
         }
 
         // Event handler des Löschen Knopfes
-        private void DeleteClickEvent(object sender, RoutedEventArgs e)
+        private async void DeleteClickEvent(object sender, RoutedEventArgs e)
         {
+            // Zeit zum Abspielen der Animation lassen
+            await Task.Delay((int)FindResource("AnimationTime"));
+
             // Delete Event auslösen
             Delete?.Invoke(this);
         }
     }
 }
+    

@@ -6,7 +6,7 @@
     public class Computer
     {
         public string Name { get; set; }
-        public string MacAddr { get; set; }
+        public string MacAddress { get; set; }
 
         // Leerer Standardkonstruktor
         public Computer(){}
@@ -15,7 +15,7 @@
         public Computer(string name, string mac)
         {
             Name = name;
-            MacAddr = mac;
+            MacAddress = mac;
         }
     }
 }
