@@ -116,7 +116,8 @@ namespace PC_Verwaltung
             return false;
         }
 
-        // IsValidEmail ist eine Hilfsfunktion zum Überprüfen des Formats E-Mail. Quelle: https://docs.microsoft.com/en-us/dotnet/standard/base-types/how-to-verify-that-strings-are-in-valid-email-format
+        // IsValidEmail ist eine Hilfsfunktion zum Überprüfen des Formats E-Mail.
+        // Quelle: https://docs.microsoft.com/en-us/dotnet/standard/base-types/how-to-verify-that-strings-are-in-valid-email-format
         private static bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))

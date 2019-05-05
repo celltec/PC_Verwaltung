@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PC_Verwaltung"
              mc:Ignorable="d"
              RenderTransformOrigin="0.5,0.5" >
-             <!-- Startpunkt in die Mitte setzen, damit die Ansichten nicht aus der Ecke reinzoomen -->
+             <!-- ⮤ Startpunkt in die Mitte setzen, damit die Ansichten nicht aus der Ecke reinzoomen -->
     <UserControl.Resources>
         <ImageBrush x:Key="IconDelete" ImageSource="Images/Delete.png"/>
         <ImageBrush x:Key="IconUp" ImageSource="Images/Up.png"/>
@@ -31,7 +31,7 @@
         </EventTrigger>
         <EventTrigger RoutedEvent="Button.Click" SourceName="ButtonDelete">
             <BeginStoryboard>
-                <!-- Mit dem Löschevent wieder minimieren (Das Object wird erst nach ablauf der Animation tatsächlich gelöscht) -->
+                <!-- Mit dem Lösch-Event wieder minimieren (Das Objekt wird erst nach ablauf der Animation tatsächlich gelöscht) -->
                 <Storyboard TargetName="AnimatedScaling">
                     <DoubleAnimation Storyboard.TargetProperty="ScaleX" To="0" Duration="{StaticResource AnimationDuration}"/>
                     <DoubleAnimation Storyboard.TargetProperty="ScaleY" To="0" Duration="{StaticResource AnimationDuration}"/>

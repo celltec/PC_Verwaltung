@@ -11,8 +11,11 @@ using System.Windows.Media.Animation;
 namespace PC_Verwaltung
 {
     /// <Zusammenfassung>
-    /// Die Klasse Manager beinhaltet die Logik für die Eingabe von Daten und Einstellungen.
-    /// Dieses Fenster ist das Hauptfenster in dem sich nach der Anmeldung alles abspielt.
+    /// Dieses Fenster ist das Hauptfenster in dem sich nach der Anmeldung alles abspielt
+    /// Die Klasse Manager beinhaltet:
+    /// - Die Logik für die Eingabe und Speicherung von Daten
+    /// - Funktionalitäten für die Darstellung der grafischen Benutzeroberfläche
+    /// - Event Handler der Oberflächenelemente
     /// </Zusammenfassung>
     public partial class Manager : Window
     {
@@ -73,32 +76,33 @@ namespace PC_Verwaltung
         // Läd eine Konfiguration aus einer XML Datei
         private void OpenConfiguration()
         {
-            OpenFileDialog XmlFileDialog = new OpenFileDialog() { Filter = "XML Dateien (*.xml)|*.xml" };
+            OpenFileDialog xmlFileDialog = new OpenFileDialog() { Filter = "XML Dateien (*.xml)|*.xml" };
 
             // Fragen welche Datei geöffnet werden soll
-            if (XmlFileDialog.ShowDialog() == true)
+            if (xmlFileDialog.ShowDialog() == true)
             {
                 // Globalen Dateipfad der XML setzen
-                XmlFilePath = XmlFileDialog.FileName;
+                XmlFilePath = xmlFileDialog.FileName;
 
                 // Erstelle Leseobjekt
-                FileStream Reader = new FileStream(XmlFilePath, FileMode.Open, FileAccess.Read);
+                FileStream reader = new FileStream(XmlFilePath, FileMode.Open, FileAccess.Read);
 
                 try
                 {
                     // Konvertiere die Daten der XML Datei in Computer Objekte
-                    UpdateConfiguration((List<Computer>)Xml.Deserialize(Reader));
+                    UpdateConfiguration((List<Computer>)Xml.Deserialize(reader));
                     UpdateIndexes();
                 }
                 catch (Exception e)
                 {
                     // Zeige eine Fehlermeldung wenn etwas schief gegangen ist
                     MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    XmlFilePath = "";
                 }
                 finally
                 {
                     // Leseobjekt muss geschlossen werden
-                    Reader.Close();
+                    reader.Close();
                 }
             }
         }
@@ -106,25 +110,26 @@ namespace PC_Verwaltung
         // Schreibt die derzeitige Konfiguration in die geöffnete XML Datei
         private void SaveConfiguration()
         {
-            // Liste mit allen Computern, die dem derzeitigen Benutzer zugewiesen sind
-            List<Computer> Computers = new List<Computer>();
+            // Leere Liste von Computern erstellen
+            List<Computer> computers = new List<Computer>();
 
+            // Liste mit der aktuellen Konfiguration befüllen
             foreach (ComputerView view in ComputerViewList.Children)
             {
-                Computers.Add(new Computer(view.TextBoxName.Text, view.TextBoxMac.Text));
+                computers.Add(new Computer(view.TextBoxName.Text, view.TextBoxMac.Text));
             }
 
             // Erstelle Schreibeobjekt
-            FileStream Writer = new FileStream(XmlFilePath, FileMode.Create, FileAccess.Write);
+            FileStream writer = new FileStream(XmlFilePath, FileMode.Create, FileAccess.Write);
 
             // Für bessere Ästhetik unnötige Angaben über den Namespace unterdrücken 
-            XmlSerializerNamespaces EmptyNameSpace = new XmlSerializerNamespaces();
-            EmptyNameSpace.Add(string.Empty, string.Empty);
+            XmlSerializerNamespaces emptyNameSpace = new XmlSerializerNamespaces();
+            emptyNameSpace.Add(string.Empty, string.Empty);
 
             try
             {
                 // Konvertiere die Daten der Computer Objekte in das XML Format
-                Xml.Serialize(Writer, Computers, EmptyNameSpace);
+                Xml.Serialize(writer, computers, emptyNameSpace);
             }
             catch (Exception e)
             {
@@ -134,20 +139,20 @@ namespace PC_Verwaltung
             finally
             {
                 // Schreibeobjekt muss geschlossen werden
-                Writer.Close();
+                writer.Close();
             }
         }
 
         // Ruft die Methode zum Speichern für eine neue XML Datei auf
         private void SaveAsConfiguration()
         {
-            SaveFileDialog XmlFileDialog = new SaveFileDialog{ Filter = "XML Dateien (*.xml)|*.xml" };
+            SaveFileDialog xmlFileDialog = new SaveFileDialog{ Filter = "XML Dateien (*.xml)|*.xml" };
 
             // Fragen wo die Datei gespeichert werden soll
-            if (XmlFileDialog.ShowDialog() == true)
+            if (xmlFileDialog.ShowDialog() == true)
             {
                 // Globalen Dateipfad der XML setzen
-                XmlFilePath = XmlFileDialog.FileName;
+                XmlFilePath = xmlFileDialog.FileName;
                 SaveConfiguration();
             }
         }
@@ -171,7 +176,7 @@ namespace PC_Verwaltung
             // Prüfen, ob dieser Computer der Erste in der Liste ist
             if (viewIndex > 0)
             {
-                MoveComputer(viewIndex, Direction.Up);
+                MoveComputerAnimated(viewIndex, Direction.Up);
             }
         }
 
@@ -183,12 +188,13 @@ namespace PC_Verwaltung
             // Prüfen, ob dieser Computer der Letzte in der Liste ist
             if (viewIndex < ComputerViewList.Children.Count - 1)
             {
-                MoveComputer(viewIndex, Direction.Down);
+                MoveComputerAnimated(viewIndex, Direction.Down);
             }
         }
 
-        // Funktion zum animierten Verschieben eines Computers in eine bestimmte Richtung
-        private async void MoveComputer(int viewIndex, Direction direction)
+        // Funktion zum animierten Verschieben eines Computers in der Liste der Computeransichten
+        // Es findet erst eine bildliche Darstellung statt. Erst im Nachhinein wird die Position des Objekts geändert
+        private async void MoveComputerAnimated(int viewIndex, Direction direction)
         {
             // Neue Referenz auf die Objecte erstellen, um local damit arbeiten zu können
             ComputerView currentView = (ComputerView)ComputerViewList.Children[viewIndex];
@@ -216,11 +222,12 @@ namespace PC_Verwaltung
             // Zeit zum Abspielen der Animation lassen
             await Task.Delay(((Duration)FindResource("AnimationDuration")).TimeSpan);
 
-            // Versatz zurücksetzen
+            // Position zurücksetzen, weil die Ansichten als nächstes in der Liste getauscht werden 
+            // Nach der Neuverteilung ist alles wieder normal, d.h. es darf keinen Versatz mehr geben
             currentView.AnimatedMoving.BeginAnimation(TranslateTransform.YProperty, reset);
             nextView.AnimatedMoving.BeginAnimation(TranslateTransform.YProperty, reset);
 
-            // View aus alter Stelle entfernen und an neuer einfügen
+            // Ansicht aus alter Stelle entfernen und an neuer einfügen
             ComputerViewList.Children.Remove(currentView);
             ComputerViewList.Children.Insert(viewIndex + (int)direction, currentView);
 
