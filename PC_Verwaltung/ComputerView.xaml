@@ -71,7 +71,7 @@
                 <TextBox x:Name="TextBoxName" Grid.Row="0" Grid.Column="1" FontSize="16" Margin="7"/>
                 <TextBox x:Name="TextBoxMac" Grid.Row="1" Grid.Column="1" FontSize="16" Margin="7"/>
                 <TextBox x:Name="TextBoxProperties" Grid.Row="2" Grid.Column="1" FontSize="16" Margin="7"/>
-                <TextBox x:Name="TextBoxPrice" Grid.Row="3" Grid.Column="1" FontSize="16" Margin="7"/>
+                <TextBox x:Name="TextBoxPrice" PreviewTextInput="TextBoxPriceValidation" Grid.Row="3" Grid.Column="1" FontSize="16" Margin="7"/>
             </Grid>
         </DockPanel>
     </Border>

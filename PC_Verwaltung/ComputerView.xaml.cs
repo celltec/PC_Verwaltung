@@ -1,17 +1,29 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Text.RegularExpressions;
 
 namespace PC_Verwaltung
 {
     /// <Zusammenfassung>
-    /// Die Klasse ComputerView beinhaltet Event Handler für das UserControl
+    /// Die Klasse ComputerView beinhaltet Event Handler und Textbox Validierungen für das UserControl
     /// </Zusammenfassung>
     public partial class ComputerView : UserControl
     {
         public ComputerView()
         {
             InitializeComponent();
+        }
+
+        // Sorgt dafür, dass nur Zahlen eingegeben werden können
+        private void TextBoxPriceValidation(object sender, TextCompositionEventArgs e)
+        {
+            // Gültigen Bereich auf Zahlen beschränken
+            Regex regex = new Regex("[0-9]+");
+
+            // Wenn Handled true ist, wird das Event nicht weiter bearbeitet und die Eingabe erscheint nicht in der Textbox
+            e.Handled = !regex.IsMatch(e.Text);
         }
 
         // Event handler zum Verschieben dieses ComputerView Objektes nach oben
