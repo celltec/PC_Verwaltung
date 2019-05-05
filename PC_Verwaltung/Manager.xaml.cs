@@ -65,6 +65,9 @@ namespace PC_Verwaltung
                 // Inhalt setzen
                 view.TextBoxName.Text = computer.Name;
                 view.TextBoxMac.Text = computer.MacAddress;
+                view.TextBoxProperties.Text = computer.Properties;
+                view.TextBoxPrice.Text = computer.Price;
+                view.LabelDate.Content = computer.DateAdded;
 
                 AddHandlers(view);
 
@@ -95,8 +98,18 @@ namespace PC_Verwaltung
                 }
                 catch (Exception e)
                 {
-                    // Zeige eine Fehlermeldung wenn etwas schief gegangen ist
-                    MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (e.InnerException.ToString().Contains("was not expected"))
+                    {
+                        // Meldung wenn der derzeitige Benutzername nicht mit dem Namen in der Xml Datei übereinstimmt
+                        MessageBox.Show("Keine Berechtigungen für diesen Benutzer", "Zugriff verweigert", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        // Zeige eine Fehlermeldung wenn etwas anderes schief gegangen ist
+                        MessageBox.Show(e.Message + "\n" + e.InnerException.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    // Pfad zurücksetzen
                     XmlFilePath = "";
                 }
                 finally
@@ -116,7 +129,13 @@ namespace PC_Verwaltung
             // Liste mit der aktuellen Konfiguration befüllen
             foreach (ComputerView view in ComputerViewList.Children)
             {
-                computers.Add(new Computer(view.TextBoxName.Text, view.TextBoxMac.Text));
+                computers.Add(new Computer(
+                    view.TextBoxName.Text,
+                    view.TextBoxMac.Text,
+                    view.TextBoxProperties.Text,
+                    view.TextBoxPrice.Text == "" ? int.MinValue.ToString() : view.TextBoxPrice.Text, // Wenn leer, negativen Wert einfügen
+                    view.LabelDate.Content.ToString())
+                    );
             }
 
             // Erstelle Schreibeobjekt
@@ -242,11 +261,14 @@ namespace PC_Verwaltung
             UpdateIndexes();
         }
 
-        // Event handler zum Hinzufügen einer Konfiguration
+        // Event handler zum Hinzufügen eines Computers
         private void AddClickEvent(object sender, RoutedEventArgs e)
         {
             // Leeren Computer erstellen
             ComputerView view = new ComputerView();
+
+            // Heutiges Datum setzen
+            view.LabelDate.Content = DateTime.Today.ToString("dd.MM.yy");
 
             AddHandlers(view);
 
